@@ -1,104 +1,105 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public Canvas menuCanvas;
-    public Text mapNameText;
-    public InputField field;
-    public GameObject gameSettings;
+	public Canvas menuCanvas;
+	public Text mapNameText;
+	public InputField field;
+	public GameObject gameSettings;
+	public Button resetPlayerProfileButton;
 
-    int id = 0;
-    int mapGeneratedId = 0;
+	int id = 0;
+	int mapGeneratedId = 0;
 
-    public void Show(bool show)
-    {
-        if (show)
-        {
-            menuCanvas.enabled = true;
-        }
-        else
-        {
-            menuCanvas.enabled = false;
-        }
-    }
+	public void Show(bool show)
+	{
+		if (show)
+		{
+			menuCanvas.enabled = true;
+		}
+		else
+		{
+			menuCanvas.enabled = false;
+		}
+	}
 
 
-    public void ShowGameSettings()
-    {
-        if (gameSettings.activeSelf == false)
-        {
-            gameSettings.SetActive(true);
-        }
-        else
-        {
-            gameSettings.SetActive(false);
-        }
-    }
+	public void ShowGameSettings()
+	{
+		if (gameSettings.activeSelf == false)
+		{
+			gameSettings.SetActive(true);
+		}
+		else
+		{
+			gameSettings.SetActive(false);
+		}
+	}
 
-    public void SetSeed()
-    {
-        int seed = 0;
-        try
-        {
-            seed = System.Convert.ToInt32(field.text);
-        }
-        catch { }
-        GameManager.instance.SetGenerationSeed(seed);
-    }
+	public void SetSeed()
+	{
+		int seed = 0;
+		try
+		{
+			seed = System.Convert.ToInt32(field.text);
+		}
+		catch { }
+		GameManager.instance.SetGenerationSeed(seed);
+	}
 
-    public void Quit()
-    {
-        Application.Quit();
-    }
+	public void Quit()
+	{
+		Application.Quit();
+	}
 
-    private void Start()
-    {
-        mapNameText.text = GameManager.instance.generator.mapTypes[GameManager.instance.mapTypeIdNow].name;
-    }
+	private void Start()
+	{
+		mapNameText.text = GameManager.instance.generator.mapTypes[GameManager.instance.mapTypeIdNow].name;
 
-    public void ChangeMapType(int step)
-    {
-        id = GameManager.instance.mapTypeIdNow;
+		if (resetPlayerProfileButton != null)
+			resetPlayerProfileButton.onClick.AddListener(PluginController.Instance.ResetProfile);
+	}
 
-        id += step;
-        if (id < GameManager.instance.generator.mapTypes.Count)
-        {
-            if (id < 0)
-            {
-                id = GameManager.instance.generator.mapTypes.Count - 1;
-            }
-        }
-        else
-        {
-            id = 0;
-        }
+	public void ChangeMapType(int step)
+	{
+		id = GameManager.instance.mapTypeIdNow;
 
-        GameManager.instance.mapTypeIdNow = id;
-        Map.tiles = GameManager.instance.generator.mapTypes[GameManager.instance.mapTypeIdNow].tileSet;
-        mapNameText.text = GameManager.instance.generator.mapTypes[GameManager.instance.mapTypeIdNow].name;
+		id += step;
+		if (id < GameManager.instance.generator.mapTypes.Count)
+		{
+			if (id < 0)
+			{
+				id = GameManager.instance.generator.mapTypes.Count - 1;
+			}
+		}
+		else
+		{
+			id = 0;
+		}
 
-        GameManager.instance.SaveGame();
+		GameManager.instance.mapTypeIdNow = id;
+		Map.tiles = GameManager.instance.generator.mapTypes[GameManager.instance.mapTypeIdNow].tileSet;
+		mapNameText.text = GameManager.instance.generator.mapTypes[GameManager.instance.mapTypeIdNow].name;
 
-        GenerateMap(GameManager.instance.mapTypeIdNow); 
-    }
+		GameManager.instance.SaveGame();
 
-    private void GenerateMap(int Id)
-    {
-        Camera.main.GetComponent<Camera_Bounds>().fadeImage.color = new Color(0, 0, 0, 1f);
+		GenerateMap(GameManager.instance.mapTypeIdNow);
+	}
 
-        GameManager.instance.StopAll();
+	private void GenerateMap(int Id)
+	{
+		Camera.main.GetComponent<Camera_Bounds>().fadeImage.color = new Color(0, 0, 0, 1f);
 
-        GameManager.instance.GenerateLevel();
+		GameManager.instance.StopAll();
 
-        mapGeneratedId = Id;
-        if (mapGeneratedId != GameManager.instance.mapTypeIdNow)  //Если айди поменялся
-        {
-            GenerateMap(GameManager.instance.mapTypeIdNow);
-        }
-    }
+		GameManager.instance.GenerateLevel();
+
+		mapGeneratedId = Id;
+		if (mapGeneratedId != GameManager.instance.mapTypeIdNow)  //Если айди поменялся
+		{
+			GenerateMap(GameManager.instance.mapTypeIdNow);
+		}
+	}
 
 }
