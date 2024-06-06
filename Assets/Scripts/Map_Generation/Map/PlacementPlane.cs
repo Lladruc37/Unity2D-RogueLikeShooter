@@ -1,12 +1,14 @@
-﻿using UnityEngine;
-using UnityEngine.AI;
+﻿
+using System.Collections.Generic;
+using Unity.AI.Navigation;
+using UnityEngine;
 
 public class PlacementPlane : MonoBehaviour
 {
 	public Placement place;
 	public bool hiddenFromMap = true;
 
-	public NavMeshSurface[] navMaps;
+	public List<GameObject> navMaps;
 
 	public GameObject navPlane;
 	public Renderer mapPlane;
@@ -24,9 +26,10 @@ public class PlacementPlane : MonoBehaviour
 
 	private void CreateNavigation()
 	{
-		navMaps = navPlane.GetComponents<NavMeshSurface>();
+		//navMaps = navPlane.GetComponents<NavMeshSurface>().ToList();
+		Debug.Log(navMaps.Count);
 		foreach (var navMap in navMaps)
-			navMap.BuildNavMesh();
+			navMap.GetComponent<NavMeshSurface>().BuildNavMesh();
 	}
 
 	public void Setup(Placement place)

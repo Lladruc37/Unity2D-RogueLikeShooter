@@ -72,6 +72,7 @@ public class EnemiesManager : ScriptableObject
 
 				if (room.roomType == roomType.last)
 				{
+					// TODO: THIS SPAWNS BOSS
 					GameObject enemy = GetEnemy(EnemyType.Boss);
 					if (enemy != null)
 					{

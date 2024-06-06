@@ -55,6 +55,7 @@ public class GeneratorManager : MonoBehaviour
 		yield return new WaitForSecondsRealtime(3f);
 		RoomsNow = rooms;
 		this.spawnEnemies = spawnEnemies;
+		// TODO: THIS SPAWNS THE ROOMS
 		yield return map_Generator.Begin(roomsNow, text, true);
 
 		Room playerRoom = null;
