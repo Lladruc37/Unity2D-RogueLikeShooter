@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5050976805552964104}
   - component: {fileID: 2338331089854279201}
   - component: {fileID: 2280022443950915777}
-  m_Layer: 23
+  m_Layer: 19
   m_Name: Cheap Chest
   m_TagString: Destructible
   m_Icon: {fileID: 0}
@@ -153,6 +153,9 @@ MonoBehaviour:
   _maxHealth: 0
   _curHealth: 0
   destructible: 0
+  loot: {fileID: 0}
+  lootBaseAmount: 0
+  lootAmountRange: 0
   destroyOnBrake: {fileID: 0}
   breakWithAnimation: 0
   coordinates: []
@@ -217,7 +220,7 @@ GameObject:
   - component: {fileID: 4184352078436492090}
   - component: {fileID: 4184352078436492092}
   - component: {fileID: 4184352078436492093}
-  m_Layer: 23
+  m_Layer: 19
   m_Name: Interact
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -309,7 +312,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6378621599290626680}
   - component: {fileID: 1251479103226945013}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}

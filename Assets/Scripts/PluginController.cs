@@ -73,6 +73,17 @@ public class PluginController : MonoBehaviour, IDataPersistence
 		OnFeaturesCoefficientUpdated?.Invoke(); // segons el player type fes x o y ???
 	}
 
+	public float GetFeatureCoefficient(string featureName)
+	{
+		foreach (var feature in FeaturesCoefficient)
+		{
+			if (feature.Key.FeatureName == featureName)
+				return feature.Value;
+		}
+
+		return -1.0f;
+	}
+
 	// reset profile & send update
 	public void ResetProfile()
 	{

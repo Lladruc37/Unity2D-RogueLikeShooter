@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 
@@ -13,6 +14,9 @@ public class EnemiesManager : ScriptableObject
 	public Enemies CQCEnemies;
 	[SerializeField]
 	public Enemies OtherEnemies;
+
+	public static int enemyBaseAmount = 3;
+	public static float enemyAmountRange = 2;
 
 	public static EnemiesManager instance;
 	public static void Initialize()
@@ -60,7 +64,7 @@ public class EnemiesManager : ScriptableObject
 				if (room.roomType == roomType.common)
 				{
 					// TODO: THIS SPAWNS ENEMIES
-					for (int i = 0; i < 2; i++)
+					for (int i = 0; i < GetEnemiesAmount(); i++)
 					{
 						GameObject enemy = GetRandEnemy();
 						if (enemy != null)
@@ -83,9 +87,18 @@ public class EnemiesManager : ScriptableObject
 		}
 	}
 
+	private static int GetEnemiesAmount()
+	{
+		var coef = PluginController.Instance.GetFeatureCoefficient("SCRCTY");
+		var amount = enemyBaseAmount + MathF.Ceiling(enemyAmountRange * coef);
+		amount = MathF.Max(0, amount);
+		Debug.Log($"spawn enemies: {amount}");
+		return (int)amount;
+	}
+
 	public static GameObject GetRandEnemy()
 	{
-		EnemyType type = (EnemyType)Random.Range(1, 3);
+		EnemyType type = (EnemyType)UnityEngine.Random.Range(1, 3);
 		GameObject enemy = GetEnemy(type);
 		return enemy;
 	}

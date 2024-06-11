@@ -59,11 +59,9 @@ MonoBehaviour:
   - {fileID: 5118239079872929619, guid: e5c21a5070352954799aed2a50b09dcb, type: 3}
   weapons:
   - {fileID: 0}
-  loots:
-  - {fileID: 1079520518006912714, guid: 6803e51c465c5a1409c674d90cece74f, type: 3}
-  - {fileID: 1079520518006912714, guid: 6803e51c465c5a1409c674d90cece74f, type: 3}
-  - {fileID: 1079520518006912714, guid: 6803e51c465c5a1409c674d90cece74f, type: 3}
-  - {fileID: 1079520518006912714, guid: 6803e51c465c5a1409c674d90cece74f, type: 3}
+  loot: {fileID: 1079520518006912714, guid: 6803e51c465c5a1409c674d90cece74f, type: 3}
+  lootBaseAmount: 4
+  lootAmountRange: 2
   rollCoolDown: 0
   isAlive: 1
   room: {fileID: 0}

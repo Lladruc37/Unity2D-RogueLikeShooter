@@ -33,12 +33,7 @@ public class GeneratorManager : MonoBehaviour
 
 	public bool spawnEnemies;
 
-	public int roomIncreaseMin;
-	public int roomIncreaseMax;
-
-	public int minEnemies;
-	public int maxEnemies;
-
+	public int roomIncreaseRange;
 	public int maxRooms;
 
 	public List<MapType> mapTypes;
@@ -50,10 +45,9 @@ public class GeneratorManager : MonoBehaviour
 		RoomsNow = 7;
 	}
 
-	public IEnumerator GenerateLevel(int rooms, bool spawnEnemies, UnityEngine.UI.Text text)
+	public IEnumerator GenerateLevel(bool spawnEnemies, UnityEngine.UI.Text text)
 	{
 		yield return new WaitForSecondsRealtime(3f);
-		RoomsNow = rooms;
 		this.spawnEnemies = spawnEnemies;
 		// TODO: THIS SPAWNS THE ROOMS
 		yield return map_Generator.Begin(roomsNow, text, true);

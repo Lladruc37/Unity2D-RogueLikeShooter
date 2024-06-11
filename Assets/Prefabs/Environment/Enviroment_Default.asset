@@ -16,9 +16,13 @@ MonoBehaviour:
   paintColor: {r: 0.6981132, g: 0.6157885, b: 0.6157885, a: 1}
   teleport: {fileID: 5676357696981687558, guid: 81e0ad2409b740e4fb19fd7ef75ae10f,
     type: 3}
-  shopToLeft: {fileID: 3698448950110576840, guid: c7fb55cba1396854da43b0645aa76724,
+  shopToLeft: {fileID: 3698448950110576840, guid: 0ec05c759d1864a4a85f0e7b8124bea6,
+    type: 3}
+  shopToLeftLong: {fileID: 3698448950110576840, guid: c7fb55cba1396854da43b0645aa76724,
     type: 3}
   shopToRight: {fileID: 3698448950110576840, guid: 30957080a0347d04f9c5c8c07e3ad286,
+    type: 3}
+  shopToRightLong: {fileID: 3698448950110576840, guid: 6c0b57538d7dbd946be0618fee8d550a,
     type: 3}
   onWallEnvironment:
     wideWallObjects:
@@ -43,12 +47,14 @@ MonoBehaviour:
   - {fileID: 6724195059587145756, guid: b599b250c754ea0499d0fa0f9bb56486, type: 3}
   - {fileID: 6016194965853787604, guid: e1530b13f62e2b1429e18b63610fda03, type: 3}
   chest: {fileID: 2280022443950915790, guid: 9b3af9c55d4718948bc547b2d7447a1d, type: 3}
-  maxUnderWallObjects: 3
+  underWallObjectsBaseAmount: 2
+  underWallObjectsRange: 3
   underWallsObjects:
   - {fileID: 7440329499299867836, guid: f5eb7aec838af5745a0660937e0b6214, type: 3}
   - {fileID: 1428320048784599761, guid: 59416cff33e446c46b00e8a9df4c6b52, type: 3}
   - {fileID: 6217779543686525725, guid: 7e36ed6234e61034e89a2ef0f5a2603c, type: 3}
-  maxSideWallObjects: 3
+  sideWallObjectsBaseAmount: 2
+  sideWallObjectsRange: 3
   sideWallObjects:
   - {fileID: 7440329499299867836, guid: f5eb7aec838af5745a0660937e0b6214, type: 3}
   - {fileID: 2834862316651987237, guid: c949f37cff2c2334c8d0b49d8d822d38, type: 3}

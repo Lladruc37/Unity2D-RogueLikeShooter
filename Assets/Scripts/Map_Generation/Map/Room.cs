@@ -101,8 +101,6 @@ public class Room : Placement
 		}
 	}
 
-	public int enemiesToSpawn;
-
 	public GameObject enemiesGrid;
 
 	protected override void Awake()
@@ -172,7 +170,6 @@ public class Room : Placement
 		end = new Vector2(startPosition.x + RoomMaxWidth, startPosition.y + RoomMaxHeight);
 
 		roomType = type;
-		enemiesToSpawn = UnityEngine.Random.Range(GameManager.instance.generator.minEnemies, GameManager.instance.generator.maxEnemies);
 		this.number = number;
 		prevRoom = previousRoom;
 		width = roomWidth;
@@ -185,7 +182,6 @@ public class Room : Placement
 		end = new Vector2(startPosition.x + RoomMaxWidth, startPosition.y + RoomMaxHeight);
 
 		roomType = type;
-		enemiesToSpawn = UnityEngine.Random.Range(GameManager.instance.generator.minEnemies, GameManager.instance.generator.maxEnemies);
 		this.number = number;
 		width = roomWidth;
 		height = roomHeight;

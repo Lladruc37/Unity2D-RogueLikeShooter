@@ -2,46 +2,61 @@
 
 public static class Environment
 {
-	public static void CreateShop(Room room, GameObject shopToLeft, GameObject shopToRight)
+	public static void CreateShop(Room room, GameObject shopToLeft, GameObject shopToLeftLong, GameObject shopToRight, GameObject shopToRightLong)
 	{
-		bool created = Environment.CreateShopToLeft(room, shopToLeft);
-		if (created == false)
-		{
-			created = Environment.CreateShopToRight(room, shopToRight);
-		}
+		if (!Environment.CreateShopToLeft(room, shopToLeft, shopToLeftLong))
+			Environment.CreateShopToRight(room, shopToRight, shopToRightLong);
 	}
 
-
-	private static bool CreateShopToLeft(Room room, GameObject shop)
+	private static bool CreateShopToLeft(Room room, GameObject shop, GameObject longShop)
 	{
-		Vector3 position = new Vector3(room.start.x + 1, room.end.y - 4, 0);
-		Vector3 endposition = new Vector3(position.x + 4, position.y + 4);
-		GameObject s = room.CreateEnvironmentObject(shop, position);
-
-		foreach (GameObject d in room.Doors)
+		var position = new Vector3(room.start.x + 1, room.end.y - 4, 0);
+		var endposition = new Vector3(position.x + 8, position.y + 4);
+		if (room.width < (endposition.x - position.x) || !CheckForCollisions(room, longShop, position, endposition, out var ls))
 		{
-			if (SimpleFunctions.Check_Superimpose(position, endposition, d.transform.position, d.transform.position, 2))
-			{
-				GameObject.Destroy(s);
+			endposition.x -= 2;
+			if (room.width < (endposition.x - position.x) || !CheckForCollisions(room, shop, position, endposition, out var s))
 				return false;
-			}
+
+			foreach (Transform t in s.GetComponentsInChildren<Transform>())
+				room.EnvironmentTiles.Add(new EnvironmentTile(t.gameObject, room));
+
+			return true;
 		}
 
-		Transform[] shopsEnv = s.GetComponentsInChildren<Transform>();
-		foreach (Transform t in shopsEnv)
-		{
+		foreach (Transform t in ls.GetComponentsInChildren<Transform>())
 			room.EnvironmentTiles.Add(new EnvironmentTile(t.gameObject, room));
-		}
 
-		return true;    //Если ок
+		return true;
 	}
 
-	private static bool CreateShopToRight(Room room, GameObject shop)
+
+	private static bool CreateShopToRight(Room room, GameObject shop, GameObject longShop)
 	{
 		Vector3 position = new Vector3(room.end.x - 5, room.end.y - 4, 0);
 		Vector3 endposition = new Vector3(position.x + 4, position.y + 4);
-		GameObject s = room.CreateEnvironmentObject(shop, position);
 
+		if (room.width < (endposition.x - position.x) || !CheckForCollisions(room, longShop, position, endposition, out var ls))
+		{
+			position.x -= 2;
+			if (room.width < (endposition.x - position.x) || !CheckForCollisions(room, shop, position, endposition, out var s))
+				return false;
+
+			foreach (Transform t in s.GetComponentsInChildren<Transform>())
+				room.EnvironmentTiles.Add(new EnvironmentTile(t.gameObject, room));
+
+			return true;
+		}
+
+		foreach (Transform t in ls.GetComponentsInChildren<Transform>())
+			room.EnvironmentTiles.Add(new EnvironmentTile(t.gameObject, room));
+
+		return true;
+	}
+
+	private static bool CheckForCollisions(Room room, GameObject shop, Vector3 position, Vector3 endposition, out GameObject s)
+	{
+		s = room.CreateEnvironmentObject(shop, position);
 		foreach (GameObject d in room.Doors)
 		{
 			if (SimpleFunctions.Check_Superimpose(position, endposition, d.transform.position, d.transform.position, 2))
@@ -50,13 +65,6 @@ public static class Environment
 				return false;
 			}
 		}
-
-		Transform[] shopsEnv = s.GetComponentsInChildren<Transform>();
-		foreach (Transform t in shopsEnv)
-		{
-			room.EnvironmentTiles.Add(new EnvironmentTile(t.gameObject, room));
-		}
-
 		return true;
 	}
 

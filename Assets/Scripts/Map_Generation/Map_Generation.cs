@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +13,8 @@ public class Map_Generation : MonoBehaviour
 	public int roomsAmount;
 
 	public int shopsAmount;
-	public int secretAmount;
+	public int secretRoomBaseAmount;
+	public int secretRoomRange;
 
 	public bool createArchitecture;
 
@@ -120,8 +122,9 @@ public class Map_Generation : MonoBehaviour
 		yield return StartCoroutine(CreateAdditionalCorridors());
 
 		ChangeLoadText("CREATING ADDITIONAL ROOMS");
-		yield return StartCoroutine(GenerateSecret());
-		yield return StartCoroutine(GenerateNextLevel());
+		var secretRoomsAmount = GetSecretRoomsAmount();
+		yield return StartCoroutine(GenerateSecret(secretRoomsAmount));
+		yield return StartCoroutine(GenerateNextLevel(secretRoomsAmount));
 
 		ChangeLoadText("RESIZING ROOMS");
 		yield return StartCoroutine(ResizeRooms());
@@ -172,13 +175,14 @@ public class Map_Generation : MonoBehaviour
 				Room room = roomObj.AddComponent<Room>();
 				Map.roomObjs.Add(room);
 
-				room.SetupRoom(roomCount, 16, 16, transform.position, roomType.playerStart, RoomMaxWidth, RoomMaxHeight);
+				byte length = System.Convert.ToByte(randomGenerator.Next(RoomMinHeight, RoomMaxHeight));
+
+				room.SetupRoom(roomCount, length, length, transform.position, roomType.playerStart, RoomMaxWidth, RoomMaxHeight);
 				CreateRoom(Map.roomObjs[roomCount]);
 			}
 			else
 			{
 				// TODO: THIS GENERATES ROOMS
-				byte corridor_length = minCorridorLength;
 				int roombehind = roomCount - 1;  // комната сзади
 
 				byte height = System.Convert.ToByte(randomGenerator.Next(RoomMinHeight, RoomMaxHeight));
@@ -401,8 +405,8 @@ public class Map_Generation : MonoBehaviour
 
 			int roombehind = System.Convert.ToByte(randomGenerator.Next(0, roomsAmount));  // комната сзади
 
-			byte height = 14;
-			byte width = 16;
+			byte height = System.Convert.ToByte(randomGenerator.Next(RoomMinHeight, RoomMaxHeight) / 2.5f);
+			byte width = System.Convert.ToByte(randomGenerator.Next(RoomMinWidth, RoomMaxWidth) / 3f);    //Рандоманая высота и ширина
 
 			Direction4D randDirection = RandomDirection((float)randomGenerator.NextDouble());    //Рандомное направление
 
@@ -412,8 +416,17 @@ public class Map_Generation : MonoBehaviour
 		yield return 0;
 	}
 
+	private int GetSecretRoomsAmount()
+	{
+		var coef = PluginController.Instance.GetFeatureCoefficient("SCRCTY");
+		var amount = secretRoomBaseAmount + MathF.Ceiling(secretRoomRange * coef);
+		amount = MathF.Max(0, amount);
+		Debug.Log($"secret rooms: {amount}");
+		return (int)amount;
+	}
+
 	// TODO: THIS GENERATES SECRET ROOMS
-	private IEnumerator GenerateSecret()
+	private IEnumerator GenerateSecret(int secretAmount)
 	{
 		for (int i = 0; i < secretAmount; i++)
 		{
@@ -421,8 +434,8 @@ public class Map_Generation : MonoBehaviour
 
 			int roombehind = System.Convert.ToByte(randomGenerator.Next(0, roomsAmount));  // комната сзади
 
-			byte height = 9;
-			byte width = 9;
+			byte height = System.Convert.ToByte(randomGenerator.Next(RoomMinHeight, RoomMaxHeight) / 2.5f);
+			byte width = System.Convert.ToByte(randomGenerator.Next(RoomMinWidth, RoomMaxWidth) / 2.5f);    //Рандоманая высота и ширина
 
 			Direction4D randDirection = RandomDirection((float)randomGenerator.NextDouble());    //Рандомное направление
 
@@ -431,18 +444,17 @@ public class Map_Generation : MonoBehaviour
 		yield return 0;
 	}
 
-	private IEnumerator GenerateNextLevel()
+	private IEnumerator GenerateNextLevel(int secretAmount)
 	{
 		byte roomNumber = System.Convert.ToByte(roomsAmount + shopsAmount + secretAmount);
 
 		int roombehind = System.Convert.ToByte(roomsAmount);  // комната сзади (last)
 
-		byte height = 6;
-		byte width = 6;
+		byte length = System.Convert.ToByte(randomGenerator.Next(RoomMinHeight, RoomMaxHeight) / 3f);
 
 		Direction4D randDirection = RandomDirection((float)randomGenerator.NextDouble());    //Рандомное направление
 
-		TryCreateRoom(roomNumber, roombehind, width, height, randDirection, roomType.nextlevel);
+		TryCreateRoom(roomNumber, roombehind, length, length, randDirection, roomType.nextlevel);
 
 		yield return 0;
 	}

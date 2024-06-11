@@ -212,9 +212,7 @@ public class Player : NPC
 				allowDamage = false;
 
 				if (stats.curHealth > 0)
-				{
 					StartCoroutine(Flash());
-				}
 			}
 
 			RefreshStats();

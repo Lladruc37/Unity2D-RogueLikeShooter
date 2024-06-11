@@ -205,6 +205,9 @@ MonoBehaviour:
   _maxHealth: 0
   _curHealth: 0
   destructible: 0
+  loot: {fileID: 0}
+  lootBaseAmount: 0
+  lootAmountRange: 0
   destroyOnBrake: {fileID: 0}
   breakWithAnimation: 0
   coordinates:

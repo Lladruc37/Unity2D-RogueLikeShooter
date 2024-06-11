@@ -114,8 +114,9 @@ MonoBehaviour:
   FacingRight: 1
   weaponsToInitialize: []
   weapons: []
-  loots:
-  - {fileID: 1079520518006912714, guid: 6803e51c465c5a1409c674d90cece74f, type: 3}
+  loot: {fileID: 1079520518006912714, guid: 6803e51c465c5a1409c674d90cece74f, type: 3}
+  lootBaseAmount: 3
+  lootAmountRange: 1
   rollCoolDown: 0
   isAlive: 1
   room: {fileID: 0}
