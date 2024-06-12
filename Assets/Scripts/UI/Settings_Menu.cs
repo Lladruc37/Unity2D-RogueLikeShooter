@@ -1,148 +1,158 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Settings_Menu : MonoBehaviour
 {
-    public Slider volumeSlider;
-    public Text volumeText;
+	public Image background;
 
-    public Slider sfxVolumeSlider;
-    public Text sfxVolumeText;
+	public Slider volumeSlider;
+	public Text volumeText;
 
-    public Slider musicVolumeSlider;
-    public Text musicVolumeText;
+	public Slider sfxVolumeSlider;
+	public Text sfxVolumeText;
 
-    public Slider ambientVolumeSlider;
-    public Text ambientVolumeText;
+	public Slider musicVolumeSlider;
+	public Text musicVolumeText;
 
-    public Slider shotsVolumeSlider;
-    public Text shotsVolumeText;
+	public Slider ambientVolumeSlider;
+	public Text ambientVolumeText;
 
-    public Slider fpsSlider;
-    public Text fpsText;
+	public Slider shotsVolumeSlider;
+	public Text shotsVolumeText;
 
-    public Toggle vsyncToggle;
+	public Slider fpsSlider;
+	public Text fpsText;
 
-    public Dropdown dropDownResolution;
-    public Toggle fullScreenToggle;
+	public Toggle vsyncToggle;
 
-    public void Awake()
-    {
-        GetComponent<Canvas>().enabled = false;
-    }
+	public Dropdown dropDownResolution;
+	public Toggle fullScreenToggle;
 
-    public void Save()
-    {
-        Debug.Log("SAVING!!");
-        SettingsValues settings = new SettingsValues();
+	public void Awake()
+	{
+		GetComponent<Canvas>().enabled = false;
+	}
 
-        settings.volume = volumeSlider.value;
-        settings.music = musicVolumeSlider.value;
-        settings.ambient = ambientVolumeSlider.value;
-        settings.sfx = sfxVolumeSlider.value;
-        settings.shots = shotsVolumeSlider.value;
+	private void OnEnable()
+	{
+		background.color = new Color(0, 0, 0, 0.5f);
+	}
 
-        settings.fps = System.Convert.ToInt32(fpsSlider.value);
+	private void OnDisable()
+	{
+		background.color = new Color(0, 0, 0, 0);
+	}
 
-        if (vsyncToggle.isOn)
-        {
-            settings.VSYNC = 1;
-        }
-        else
-        {
-            settings.VSYNC = 0;
-        }
-        if (fullScreenToggle.isOn)
-        {
-            settings.FullScreen = 1;
-        }
-        else
-        {
-            settings.FullScreen = 0;
-        }
+	public void Save()
+	{
+		Debug.Log("SAVING!!");
+		SettingsValues settings = new SettingsValues();
 
-        settings.resolutionIndex = dropDownResolution.value;
+		settings.volume = volumeSlider.value;
+		settings.music = musicVolumeSlider.value;
+		settings.ambient = ambientVolumeSlider.value;
+		settings.sfx = sfxVolumeSlider.value;
+		settings.shots = shotsVolumeSlider.value;
 
-        Settings.SaveSettings(settings);
-    }
+		settings.fps = System.Convert.ToInt32(fpsSlider.value);
 
-    public void OnFpsSliderChanged()
-    {
-        if (System.Convert.ToInt32(fpsSlider.value) > 144)
-        {
-            fpsText.text = "UNLIMITED";
-        }
-        else
-        {
-            fpsText.text = System.Convert.ToInt32(fpsSlider.value).ToString();
-        }
-    }
+		if (vsyncToggle.isOn)
+		{
+			settings.VSYNC = 1;
+		}
+		else
+		{
+			settings.VSYNC = 0;
+		}
+		if (fullScreenToggle.isOn)
+		{
+			settings.FullScreen = 1;
+		}
+		else
+		{
+			settings.FullScreen = 0;
+		}
 
-    public void OnVolumeSliderChanged()
-    {
-        volumeText.text = (volumeSlider.value*100).ToString("0") + "%";
-        sfxVolumeText.text = (sfxVolumeSlider.value * 100).ToString("0") + "%";
-        musicVolumeText.text = (musicVolumeSlider.value * 100).ToString("0") + "%";
-        ambientVolumeText.text = (ambientVolumeSlider.value * 100).ToString("0") + "%";
-        shotsVolumeText.text = (shotsVolumeSlider.value * 100).ToString("0") + "%";
-    }
+		settings.resolutionIndex = dropDownResolution.value;
 
-    public void Start()
-    {
-        Settings.LoadSetting();
+		Settings.SaveSettings(settings);
+	}
 
-        volumeSlider.value = Settings.settingValues.volume;
-        musicVolumeSlider.value = Settings.settingValues.music;
-        ambientVolumeSlider.value = Settings.settingValues.ambient;
-        sfxVolumeSlider.value = Settings.settingValues.sfx;
-        shotsVolumeSlider.value = Settings.settingValues.shots;
+	public void OnFpsSliderChanged()
+	{
+		if (System.Convert.ToInt32(fpsSlider.value) > 144)
+		{
+			fpsText.text = "UNLIMITED";
+		}
+		else
+		{
+			fpsText.text = System.Convert.ToInt32(fpsSlider.value).ToString();
+		}
+	}
 
-        if (Settings.settingValues.FullScreen == 0)
-        {
-            fullScreenToggle.isOn = false;
-        }
-        else
-        {
-            vsyncToggle.isOn = true;
-        }
+	public void OnVolumeSliderChanged()
+	{
+		volumeText.text = (volumeSlider.value * 100).ToString("0") + "%";
+		sfxVolumeText.text = (sfxVolumeSlider.value * 100).ToString("0") + "%";
+		musicVolumeText.text = (musicVolumeSlider.value * 100).ToString("0") + "%";
+		ambientVolumeText.text = (ambientVolumeSlider.value * 100).ToString("0") + "%";
+		shotsVolumeText.text = (shotsVolumeSlider.value * 100).ToString("0") + "%";
+	}
 
-        if (Settings.settingValues.VSYNC == 0)
-        {
-            Debug.Log("VSYNC OFF");
-            vsyncToggle.isOn = false;
-        }
-        else
-        {
-            vsyncToggle.isOn = true;
-        }
+	public void Start()
+	{
+		Settings.LoadSetting();
 
-        Resolution[] resolutions = Screen.resolutions;
-        int currentResIndex = 0;
+		volumeSlider.value = Settings.settingValues.volume;
+		musicVolumeSlider.value = Settings.settingValues.music;
+		ambientVolumeSlider.value = Settings.settingValues.ambient;
+		sfxVolumeSlider.value = Settings.settingValues.sfx;
+		shotsVolumeSlider.value = Settings.settingValues.shots;
 
-        dropDownResolution.ClearOptions();
-        
-        List<string> res = new List<string>();
+		if (Settings.settingValues.FullScreen == 0)
+		{
+			fullScreenToggle.isOn = false;
+		}
+		else
+		{
+			vsyncToggle.isOn = true;
+		}
 
-        for (int i = 0; i < resolutions.Length; i++)
-        {
-            string option = resolutions[i].width + " x " + resolutions[i].height;
-            res.Add(option);
+		if (Settings.settingValues.VSYNC == 0)
+		{
+			Debug.Log("VSYNC OFF");
+			vsyncToggle.isOn = false;
+		}
+		else
+		{
+			vsyncToggle.isOn = true;
+		}
 
-            if (Screen.width == resolutions[i].width && Screen.height == resolutions[i].height)
-            {
-                currentResIndex = i;
-            }
+		Resolution[] resolutions = Screen.resolutions;
+		int currentResIndex = 0;
 
-        }
+		dropDownResolution.ClearOptions();
 
-        dropDownResolution.AddOptions(res);
-        dropDownResolution.value = currentResIndex;
-        dropDownResolution.RefreshShownValue();
+		List<string> res = new List<string>();
+
+		for (int i = 0; i < resolutions.Length; i++)
+		{
+			string option = resolutions[i].width + " x " + resolutions[i].height;
+			res.Add(option);
+
+			if (Screen.width == resolutions[i].width && Screen.height == resolutions[i].height)
+			{
+				currentResIndex = i;
+			}
+
+		}
+
+		dropDownResolution.AddOptions(res);
+		dropDownResolution.value = currentResIndex;
+		dropDownResolution.RefreshShownValue();
 
 
-        fpsSlider.value = Settings.settingValues.fps;
-    }
+		fpsSlider.value = Settings.settingValues.fps;
+	}
 }
