@@ -39,6 +39,8 @@ public class Player : NPC
 	public Text reloadText;
 	public int weaponIndex;
 
+	private List<WeaponItem> seenWeapons;
+
 	public int maxItems;
 	public List<GameObject> items;
 	public int itemIndex;
@@ -76,13 +78,16 @@ public class Player : NPC
 
 	protected override void Start()
 	{
+		seenWeapons = new List<WeaponItem>();
 		base.Start();
 		WakeUp();
 		RefreshUI();
 		WakeUp();
 
 		// starting weapon
-		var coef = PluginController.Instance.GetFeatureCoefficient("SCRCTY");
+		var coef = 0.2f * PluginController.Instance.GetFeatureCoefficient("STATUS")
+			+ 0.45f * PluginController.Instance.GetFeatureCoefficient("CHOICES")
+			+ 0.35f * PluginController.Instance.GetFeatureCoefficient("CHLGS");
 		var index = 2 + MathF.Floor(weaponsToInitialize.Count * coef);
 		index = MathF.Max(0, index);
 		index = MathF.Min(index, weaponsToInitialize.Count - 1);
@@ -92,6 +97,19 @@ public class Player : NPC
 		var currentWeapon = weapons[(int)index];
 		weapons.Clear();
 		weapons.Add(currentWeapon);
+		TryAddSeenWeapon(currentWeapon);
+		weaponIndex = 0;
+	}
+
+	private void TryAddSeenWeapon(WeaponItem w)
+	{
+		if (seenWeapons.Count != 0)
+		{
+			if (seenWeapons.Contains(w))
+				return;
+		}
+		seenWeapons.Add(w);
+		PluginController.Instance.OnWeaponAcquire();
 	}
 
 	/// <summary>
@@ -288,6 +306,8 @@ public class Player : NPC
 				weapons[emptySlot] = item;
 			}
 
+			TryAddSeenWeapon(item);
+
 			if (emptySlot == weaponIndex)
 			{
 				item.GetComponentInChildren<Weapon>().Show();
@@ -298,16 +318,19 @@ public class Player : NPC
 				item.GetComponentInChildren<Weapon>().Hide();
 			}
 
-			coins -= item.price;
+			if (item.price != 0)
+			{
+				coins -= item.price;
+				PluginController.Instance.OnMoneyUsed(item.price);
+				RefreshStats();
+			}
 
 			if (FacingRight == false)
-			{
 				item.Flip();
-			}
+
 			actionBar.RefreshWeapon();
 			actionBar.DisplayInfoText(item.description);
 			return true;
-
 		}
 		actionBar.RefreshWeapon();
 		return false;
@@ -416,7 +439,12 @@ public class Player : NPC
 				}
 				else
 				{
-					coins -= item.price;
+					if (item.price != 0)
+					{
+						coins -= item.price;
+						PluginController.Instance.OnMoneyUsed(item.price);
+						RefreshStats();
+					}
 					items[emptySlot] = item.gameObject;
 					itemIndex = emptySlot;
 					return true;
@@ -425,7 +453,12 @@ public class Player : NPC
 			else
 			{
 				DropItem(itemIndex);
-				coins -= item.price;
+				if (item.price != 0)
+				{
+					coins -= item.price;
+					PluginController.Instance.OnMoneyUsed(item.price);
+					RefreshStats();
+				}
 				items[itemIndex] = item.gameObject;
 				return true;
 			}
@@ -439,7 +472,12 @@ public class Player : NPC
 			}
 			else
 			{
-				coins -= item.price;
+				if (item.price != 0)
+				{
+					coins -= item.price;
+					PluginController.Instance.OnMoneyUsed(item.price);
+					RefreshStats();
+				}
 				return true;
 			}
 		}

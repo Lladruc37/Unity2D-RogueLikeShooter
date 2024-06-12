@@ -80,6 +80,8 @@ public class Room : Placement
 	public byte number;
 	public roomType roomType;
 
+	public float playerOnEnterHealth;
+
 	public Direction4D corDirection;
 
 	public Room prevRoom;
@@ -197,10 +199,10 @@ public class Room : Placement
 	public void CloseDoors()
 	{
 		TurnOnLight();
+
 		foreach (CorridorForRoom corridor in corridors)
-		{
 			corridor.corridor.CloseDoors();
-		}
+
 		EnemiesWakeUp();
 	}
 
@@ -209,9 +211,7 @@ public class Room : Placement
 		foreach (Enemy enemy in Enemies)
 		{
 			if (enemy.isAlive)
-			{
 				enemy.WakeUp();
-			}
 		}
 		GameManager.instance.audioManager.PlayMusic(MusicType.battle);
 	}
@@ -219,21 +219,17 @@ public class Room : Placement
 	public void EnemiesSleep()
 	{
 		foreach (Enemy enemy in Enemies)
-		{
 			enemy.Sleep();
-		}
 	}
 
 	public void OpenDoors()
 	{
 		foreach (CorridorForRoom corridor in corridors)
-		{
 			corridor.corridor.OpenDoors();
-		}
+
 		if (teleport != null)
-		{
 			teleport.UnLock();
-		}
+
 		GameManager.instance.audioManager.PlayMusic(MusicType.ambient);
 	}
 
@@ -243,11 +239,11 @@ public class Room : Placement
 
 		if (Enemies.Count == 0)
 		{
-			foreach (Corridor cor in Map.corridors)
-			{
-				OpenDoors();
-			}
+			OpenDoors();
 
+			PluginController.Instance.OnRoomClear();
+			if (playerOnEnterHealth == Player.instance.stats.curHealth)
+				PluginController.Instance.OnRoomClearNoDamage();
 		}
 	}
 
@@ -256,9 +252,7 @@ public class Room : Placement
 		foreach (Vector3 v in Environment)
 		{
 			if (v == position)
-			{
 				return true;
-			}
 		}
 		return false;
 	}

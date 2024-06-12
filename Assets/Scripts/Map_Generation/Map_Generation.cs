@@ -405,7 +405,10 @@ public class Map_Generation : MonoBehaviour
 
 			int roombehind = System.Convert.ToByte(randomGenerator.Next(0, roomsAmount));  // комната сзади
 
-			var coef = PluginController.Instance.GetFeatureCoefficient("SCRCTY");
+			var coef = 0.25f * PluginController.Instance.GetFeatureCoefficient("STATUS")
+				+ 0.3f * PluginController.Instance.GetFeatureCoefficient("TRADE")
+				+ 0.1f * PluginController.Instance.GetFeatureCoefficient("EXPLR")
+				+ 0.35f * PluginController.Instance.GetFeatureCoefficient("RESRC M");
 			var minWidth = RoomMinWidth / 2.7f;
 			var maxWidth = RoomMaxWidth / 2.7f;
 			var widthRange = (maxWidth - minWidth) / 2f;
@@ -429,7 +432,11 @@ public class Map_Generation : MonoBehaviour
 
 	private int GetSecretRoomsAmount()
 	{
-		var coef = PluginController.Instance.GetFeatureCoefficient("SCRCTY");
+		var coef = 0.35f * PluginController.Instance.GetFeatureCoefficient("CURIO")
+			+ 0.05f * PluginController.Instance.GetFeatureCoefficient("EXPLR")
+			+ 0.1f * PluginController.Instance.GetFeatureCoefficient("LV&PROG")
+			+ 0.35f * PluginController.Instance.GetFeatureCoefficient("CHANCE")
+			+ 0.15f * PluginController.Instance.GetFeatureCoefficient("SCRCTY");
 		var amount = secretRoomBaseAmount + MathF.Ceiling(secretRoomRange * coef);
 		amount = MathF.Max(0, amount);
 		Debug.Log($"secret rooms: {amount}");

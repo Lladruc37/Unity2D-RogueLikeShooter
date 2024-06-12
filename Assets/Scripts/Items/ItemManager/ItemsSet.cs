@@ -59,7 +59,9 @@ public class ItemsSet : ScriptableObject
 						if (minPrice > maxPrice)
 							(maxPrice, minPrice) = (minPrice, maxPrice);
 
-						var coef = PluginController.Instance.GetFeatureCoefficient("SCRCTY");
+						var coef = 0.6f * PluginController.Instance.GetFeatureCoefficient("STATUS")
+							+ 0.15f * PluginController.Instance.GetFeatureCoefficient("TRADE")
+							+ 0.25f * PluginController.Instance.GetFeatureCoefficient("RESRC M");
 						var range = (maxPrice - minPrice) / 2f;
 						var price = MathF.Ceiling(minPrice + range + range * coef);
 						Debug.Log($"price: {price} range: {minPrice},{maxPrice}");

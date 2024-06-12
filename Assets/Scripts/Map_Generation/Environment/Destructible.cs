@@ -97,11 +97,17 @@ public class Destructible : EnvironmentObjectWithHealth
 		if (loot == null) return;
 
 		lootDropped = true;
-		var coef = PluginController.Instance.GetFeatureCoefficient("SCRCTY");
+		var coef = 0.1f * PluginController.Instance.GetFeatureCoefficient("CHLGS")
+			+ 0.2f * PluginController.Instance.GetFeatureCoefficient("TRADE")
+			+ 0.05f * PluginController.Instance.GetFeatureCoefficient("LV&PROG")
+			+ 0.5f * PluginController.Instance.GetFeatureCoefficient("CHANCE")
+			+ 0.05f * PluginController.Instance.GetFeatureCoefficient("RESRC M")
+			+ 0.15f * PluginController.Instance.GetFeatureCoefficient("SCRCTY");
 		var amount = lootBaseAmount + MathF.Ceiling(lootAmountRange * coef);
 		amount = MathF.Max(amount, 0);
 		Debug.Log($"drop loot: {amount}");
 		Drop(loot, (int)amount, transform.position);
+		PluginController.Instance.OnEnvironmentBreak();
 	}
 
 	public void Drop(GameObject loot, int amount, Vector2 position)

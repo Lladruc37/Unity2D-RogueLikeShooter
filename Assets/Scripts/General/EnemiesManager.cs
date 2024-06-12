@@ -89,7 +89,9 @@ public class EnemiesManager : ScriptableObject
 
 	private static int GetEnemiesAmount()
 	{
-		var coef = PluginController.Instance.GetFeatureCoefficient("SCRCTY");
+		var coef = 0.5f * PluginController.Instance.GetFeatureCoefficient("CHLGS")
+			+ 0.15f * PluginController.Instance.GetFeatureCoefficient("EXPLR")
+			+ 0.35f * PluginController.Instance.GetFeatureCoefficient("LV&PROG");
 		var amount = enemyBaseAmount + MathF.Ceiling(enemyAmountRange * coef);
 		amount = MathF.Max(0, amount);
 		Debug.Log($"spawn enemies: {amount}");

@@ -32,7 +32,105 @@ public class PluginController : MonoBehaviour, IDataPersistence
 			Destroy(gameObject);
 	}
 
-	// trigger
+	// triggers
+	public void OnRoomClear()
+	{
+		var changes = new Dictionary<PlayerTypes, float>
+		{
+			{ PlayerTypes.ACHIEVER, 0.4f },
+			{ PlayerTypes.FREE_SPIRIT, 0.2f }
+		};
+		PlayerTypeTrigger(changes);
+	}
+
+	public void OnRoomClearNoDamage()
+	{
+		var changes = new Dictionary<PlayerTypes, float>
+		{
+			{ PlayerTypes.PLAYER, 0.5f },
+			{ PlayerTypes.FREE_SPIRIT, -0.2f }
+		};
+		PlayerTypeTrigger(changes);
+	}
+
+	public void OnEnemyDeath()
+	{
+		var changes = new Dictionary<PlayerTypes, float>
+		{
+			{ PlayerTypes.PLAYER, 0.15f }
+		};
+		PlayerTypeTrigger(changes);
+	}
+
+	public void OnSecretRoomEnter()
+	{
+		var changes = new Dictionary<PlayerTypes, float>
+		{
+			{ PlayerTypes.FREE_SPIRIT, 0.2f }
+		};
+		PlayerTypeTrigger(changes);
+	}
+
+	public void OnShopEnter()
+	{
+		var changes = new Dictionary<PlayerTypes, float>
+		{
+			{ PlayerTypes.PHILANTHROPIST, 0.5f },
+			{ PlayerTypes.PLAYER, -0.2f }
+		};
+		PlayerTypeTrigger(changes);
+	}
+
+	public void OnShopSkip()
+	{
+		var changes = new Dictionary<PlayerTypes, float>
+		{
+			{ PlayerTypes.PHILANTHROPIST, -1f },
+			{ PlayerTypes.PLAYER, 0.2f }
+		};
+		PlayerTypeTrigger(changes);
+	}
+
+	public void OnWeaponAcquire()
+	{
+		var changes = new Dictionary<PlayerTypes, float>
+		{
+			{ PlayerTypes.ACHIEVER, 0.3f },
+			{ PlayerTypes.PLAYER, -0.1f }
+		};
+		PlayerTypeTrigger(changes);
+	}
+
+	public void OnEnvironmentBreak()
+	{
+		var changes = new Dictionary<PlayerTypes, float>
+		{
+			{ PlayerTypes.PLAYER, -0.1f },
+			{ PlayerTypes.FREE_SPIRIT, 0.05f }
+		};
+		PlayerTypeTrigger(changes);
+	}
+
+	public void OnMoneyUsed(int amount = 1)
+	{
+		var changes = new Dictionary<PlayerTypes, float>
+		{
+			{ PlayerTypes.PHILANTHROPIST, 0.05f*amount },
+			{ PlayerTypes.ACHIEVER, -0.05f*amount }
+		};
+		PlayerTypeTrigger(changes);
+	}
+
+	public void OnMoneyEarned(int amount = 1)
+	{
+		var changes = new Dictionary<PlayerTypes, float>
+		{
+			{ PlayerTypes.ACHIEVER, 0.05f*amount },
+			{ PlayerTypes.PHILANTHROPIST, 0.05f*amount }
+		};
+		PlayerTypeTrigger(changes);
+	}
+
 	public void PlayerTypeTrigger(Dictionary<PlayerTypes, float> changesToUpdate)
 	{
 		// TODO: Update the profile & act accordingly

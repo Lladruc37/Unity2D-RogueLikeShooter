@@ -225,7 +225,9 @@ public class GameManager : MonoBehaviour
 
 	private void SetMapType()
 	{
-		var coef = PluginController.Instance.GetFeatureCoefficient("SCRCTY");
+		var coef = 0.25f * PluginController.Instance.GetFeatureCoefficient("CHOICES")
+			+ 0.4f * PluginController.Instance.GetFeatureCoefficient("LV&PROG")
+			+ 0.35f * PluginController.Instance.GetFeatureCoefficient("WRLDBLD");
 		var amount = MathF.Ceiling(coef);
 		Debug.Log($"set map type: {amount}");
 		amount = 1;

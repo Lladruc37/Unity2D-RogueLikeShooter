@@ -75,6 +75,12 @@ public class Room_Trigger : MonoBehaviour
 			{
 				player.room.hereWasPlayer = true;
 				player.gameStatistic.RoomsCount += 1;
+				player.room.playerOnEnterHealth = player.stats.curHealth;
+
+				if (player.room.roomType == roomType.shop)
+					PluginController.Instance.OnShopEnter();
+				else if (player.room.roomType == roomType.secret)
+					PluginController.Instance.OnSecretRoomEnter();
 			}
 
 		}

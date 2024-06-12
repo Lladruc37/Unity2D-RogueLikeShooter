@@ -11,7 +11,11 @@ public class LoadManager : MonoBehaviour
 		GameManager.instance.SetGenerationSeedRand();
 		if (GameManager.instance.generator.RoomsNow < GameManager.instance.generator.maxRooms)
 		{
-			var coef = PluginController.Instance.GetFeatureCoefficient("SCRCTY");
+			var coef = 0.05f * PluginController.Instance.GetFeatureCoefficient("CHOICES")
+				+ 0.15f * PluginController.Instance.GetFeatureCoefficient("CHLGS")
+				+ 0.4f * PluginController.Instance.GetFeatureCoefficient("EXPLR")
+				+ 0.35f * PluginController.Instance.GetFeatureCoefficient("LV&PROG")
+				+ 0.05f * PluginController.Instance.GetFeatureCoefficient("WRLDBLD");
 			var amount = MathF.Ceiling(GameManager.instance.generator.roomIncreaseRange * coef);
 			amount = MathF.Max(0, amount);
 			Debug.Log($"room increase: {amount}");

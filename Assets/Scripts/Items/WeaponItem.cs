@@ -1,87 +1,77 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-/// <summary>
-/// Предмет содержащий оружие
-/// </summary>
-public class WeaponItem : Item
+﻿public class WeaponItem : Item
 {
-    /// <summary>
-    /// Оружие которое хранит предмет
-    /// </summary>
-    public Weapon weapon;
+	public Weapon weapon;
 
-    protected override void Awake()
-    {
-        base.Awake();
-        itemType = ItemTypes.WeaponItem;
-        name = transform.name;
-        
-
-        if (item_renderer != null)
-        {
-            item_renderer.enabled = true;
-        }
-
-        weapon = GetComponentInChildren<Weapon>();
-        weapon.Hide();
-    }
+	protected override void Awake()
+	{
+		base.Awake();
+		itemType = ItemTypes.WeaponItem;
+		name = transform.name;
 
 
-    public override bool Give(NPC npc)
-    {
-        bool took = npc.TakeItem(this);
+		if (item_renderer != null)
+		{
+			item_renderer.enabled = true;
+		}
 
-        if (took)
-        {
-            RaiseItemSoldEvent();
+		weapon = GetComponentInChildren<Weapon>();
+		weapon.Hide();
+	}
 
-            HideItem();
 
-            if (npc.npcType == NPCType.Player)
-            {
-                GetComponentInChildren<Weapon>().belongsToPlayer = true;
-            }
+	public override bool Give(NPC npc)
+	{
+		bool took = npc.TakeItem(this);
 
-            else if (npc.npcType == NPCType.Enemy)
-            {
-                weapon.infiniteAmmo = true;
-                weapon.Show();
-                GetComponentInChildren<Weapon>().belongsToPlayer = false;
-            }
+		if (took)
+		{
+			RaiseItemSoldEvent();
 
-            if (npc.movement.body != null)
-            {
-                if (weapon.oneHanded == true)
-                {
-                    if (npc.movement.body.hands != null)
-                    {
-                        SetParent(npc,npc.movement.body.hands.frontHand.transform);
-                        return true;
-                    }
+			HideItem();
 
-                }
-                else
-                {
-                    if (npc.movement.body.hands != null)
-                    {
-                        SetParent(npc, npc.movement.body.hands.rearHand.transform);
-                        return true;
-                    }
-                }
-            }
+			if (npc.npcType == NPCType.Player)
+			{
+				GetComponentInChildren<Weapon>().belongsToPlayer = true;
+			}
 
-            SetParent(npc, npc.transform);
+			else if (npc.npcType == NPCType.Enemy)
+			{
+				weapon.infiniteAmmo = true;
+				weapon.Show();
+				GetComponentInChildren<Weapon>().belongsToPlayer = false;
+			}
 
-            return true;
-        }
-        return false;
-    }
+			if (npc.movement.body != null)
+			{
+				if (weapon.oneHanded == true)
+				{
+					if (npc.movement.body.hands != null)
+					{
+						SetParent(npc, npc.movement.body.hands.frontHand.transform);
+						return true;
+					}
 
-    public override void Drop()
-    {
-        weapon.Hide();
-        ShowItem();
-    }
+				}
+				else
+				{
+					if (npc.movement.body.hands != null)
+					{
+						SetParent(npc, npc.movement.body.hands.rearHand.transform);
+						return true;
+					}
+				}
+			}
+
+			SetParent(npc, npc.transform);
+
+			return true;
+		}
+		return false;
+	}
+
+	public override void Drop()
+	{
+		weapon.Hide();
+		ShowItem();
+	}
 }
