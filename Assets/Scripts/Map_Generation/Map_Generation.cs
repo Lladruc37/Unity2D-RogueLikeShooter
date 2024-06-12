@@ -405,12 +405,23 @@ public class Map_Generation : MonoBehaviour
 
 			int roombehind = System.Convert.ToByte(randomGenerator.Next(0, roomsAmount));  // комната сзади
 
-			byte height = System.Convert.ToByte(randomGenerator.Next(RoomMinHeight, RoomMaxHeight) / 2.5f);
-			byte width = System.Convert.ToByte(randomGenerator.Next(RoomMinWidth, RoomMaxWidth) / 3f);    //Рандоманая высота и ширина
+			var coef = PluginController.Instance.GetFeatureCoefficient("SCRCTY");
+			var minWidth = RoomMinWidth / 2.7f;
+			var maxWidth = RoomMaxWidth / 2.7f;
+			var widthRange = (maxWidth - minWidth) / 2f;
+			var width = MathF.Ceiling(minWidth + widthRange + widthRange * coef);
+			width = Mathf.Clamp(width, minWidth, maxWidth);
+
+			var minHeight = RoomMinHeight / 3f;
+			var maxHeight = RoomMaxHeight / 3f;
+			var heightRange = (maxHeight - minHeight) / 2f;
+			var height = MathF.Ceiling(minHeight + heightRange + heightRange * coef);
+			height = Mathf.Clamp(height, minHeight, maxHeight);
+			Debug.Log($"shop width: {width}, shop height: {height}");
 
 			Direction4D randDirection = RandomDirection((float)randomGenerator.NextDouble());    //Рандомное направление
 
-			TryCreateRoom(roomNumber, roombehind, width, height, randDirection, roomType.shop);
+			TryCreateRoom(roomNumber, roombehind, System.Convert.ToByte(width), System.Convert.ToByte(height), randDirection, roomType.shop);
 		}
 
 		yield return 0;

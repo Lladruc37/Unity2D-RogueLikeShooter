@@ -2769,16 +2769,18 @@ MonoBehaviour:
   hitBox: {fileID: 3298910833696475929}
   FacingRight: 1
   weaponsToInitialize:
-  - {fileID: 5118239079872929619, guid: 495a9335e62d8f0488c4e3c2e42cf868, type: 3}
-  - {fileID: 5118239079872929619, guid: e5c21a5070352954799aed2a50b09dcb, type: 3}
-  - {fileID: 5118239079872929619, guid: f61c67489047b914592c0b2e7264cf49, type: 3}
   - {fileID: 5118239079872929619, guid: 529689f83e6b2064587c75b69296c078, type: 3}
+  - {fileID: 5118239079872929619, guid: e5c21a5070352954799aed2a50b09dcb, type: 3}
+  - {fileID: 5118239079872929619, guid: 495a9335e62d8f0488c4e3c2e42cf868, type: 3}
+  - {fileID: 5118239079872929619, guid: f61c67489047b914592c0b2e7264cf49, type: 3}
   - {fileID: 5118239079872929619, guid: 759568b1f275ac24b83e5c4ba51524ad, type: 3}
   weapons:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  loots: []
+  loot: {fileID: 0}
+  lootBaseAmount: 0
+  lootAmountRange: 0
   rollCoolDown: 0
   isAlive: 1
   room: {fileID: 0}

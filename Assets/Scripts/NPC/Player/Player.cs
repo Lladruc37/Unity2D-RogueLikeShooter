@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -79,6 +80,18 @@ public class Player : NPC
 		WakeUp();
 		RefreshUI();
 		WakeUp();
+
+		// starting weapon
+		var coef = PluginController.Instance.GetFeatureCoefficient("SCRCTY");
+		var index = 2 + MathF.Floor(weaponsToInitialize.Count * coef);
+		index = MathF.Max(0, index);
+		index = MathF.Min(index, weaponsToInitialize.Count - 1);
+		Debug.Log($"starting weapon: {index}");
+
+		ChangeWeapon((int)index);
+		var currentWeapon = weapons[(int)index];
+		weapons.Clear();
+		weapons.Add(currentWeapon);
 	}
 
 	/// <summary>

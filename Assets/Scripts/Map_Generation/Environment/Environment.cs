@@ -4,8 +4,11 @@ public static class Environment
 {
 	public static void CreateShop(Room room, GameObject shopToLeft, GameObject shopToLeftLong, GameObject shopToRight, GameObject shopToRightLong)
 	{
-		if (!Environment.CreateShopToLeft(room, shopToLeft, shopToLeftLong))
-			Environment.CreateShopToRight(room, shopToRight, shopToRightLong);
+		var chance = Random.Range(-1f, 1f);
+		if (chance < 0f)
+			CreateShopToLeft(room, shopToLeft, shopToLeftLong);
+		else
+			CreateShopToRight(room, shopToRight, shopToRightLong);
 	}
 
 	private static bool CreateShopToLeft(Room room, GameObject shop, GameObject longShop)
@@ -34,11 +37,11 @@ public static class Environment
 	private static bool CreateShopToRight(Room room, GameObject shop, GameObject longShop)
 	{
 		Vector3 position = new Vector3(room.end.x - 5, room.end.y - 4, 0);
-		Vector3 endposition = new Vector3(position.x + 4, position.y + 4);
+		Vector3 endposition = new Vector3(position.x + 8, position.y + 4);
 
 		if (room.width < (endposition.x - position.x) || !CheckForCollisions(room, longShop, position, endposition, out var ls))
 		{
-			position.x -= 2;
+			endposition.x -= 2;
 			if (room.width < (endposition.x - position.x) || !CheckForCollisions(room, shop, position, endposition, out var s))
 				return false;
 
