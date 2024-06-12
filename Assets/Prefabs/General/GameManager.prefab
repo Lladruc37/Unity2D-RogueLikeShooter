@@ -233,8 +233,8 @@ MonoBehaviour:
   randSeed: 0
   roomsAmount: 0
   shopsAmount: 1
-  secretRoomBaseAmount: 0
-  secretRoomRange: 0
+  secretRoomBaseAmount: 1
+  secretRoomRange: 2
   createArchitecture: 1
   branchChance: 0.75
   chanceUp: 0.4
@@ -242,10 +242,10 @@ MonoBehaviour:
   chanceRight: 0.2
   chanceLeft: 0.2
   RoomMinWidth: 18
-  RoomMaxWidth: 30
-  RoomMinHeight: 16
-  RoomMaxHeight: 26
-  minCorridorLength: 3
+  RoomMaxWidth: 25
+  RoomMinHeight: 15
+  RoomMaxHeight: 25
+  minCorridorLength: 2
   placementPlane: {fileID: 8697303699883969769, guid: 91acfad66be2b0149941b8faab8fb865,
     type: 3}
   loadingText: {fileID: 0}

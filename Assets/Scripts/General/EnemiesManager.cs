@@ -68,20 +68,15 @@ public class EnemiesManager : ScriptableObject
 					{
 						GameObject enemy = GetRandEnemy();
 						if (enemy != null)
-						{
 							SpawnEnemy(room, enemy);
-						}
 					}
 				}
-
-				if (room.roomType == roomType.last)
+				else if (room.roomType == roomType.last)
 				{
 					// TODO: THIS SPAWNS BOSS
 					GameObject enemy = GetEnemy(EnemyType.Boss);
 					if (enemy != null)
-					{
-						SpawnEnemy(room, enemy, new Vector2(room.width / 2, room.height / 2), true);
-					}
+						SpawnEnemy(room, enemy, new Vector2(room.width / 2f, room.height / 2f), true);
 				}
 			}
 		}

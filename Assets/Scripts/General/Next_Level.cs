@@ -26,7 +26,7 @@ public class Next_Level : MonoBehaviour
 				{
 					foreach (Room r in Map.roomObjs)
 					{
-						if (r.roomType == roomType.shop && r.hereWasPlayer)
+						if (r.roomType == roomType.shop && !r.hereWasPlayer)
 							PluginController.Instance.OnShopSkip();
 					}
 					GameManager.instance.loadManager.NextLevel();

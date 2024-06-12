@@ -40,11 +40,6 @@ public class GeneratorManager : MonoBehaviour
 
 	private int playerSpawnRoom;
 
-	private void Awake()
-	{
-		RoomsNow = 7;
-	}
-
 	public IEnumerator GenerateLevel(bool spawnEnemies, UnityEngine.UI.Text text)
 	{
 		yield return new WaitForSecondsRealtime(3f);
@@ -66,13 +61,9 @@ public class GeneratorManager : MonoBehaviour
 		GameManager.instance.TeleportPlayer(playerRoom);
 
 		if (spawnEnemies)
-		{
 			EnemiesManager.SpawnInit(playerSpawnRoom);
-		}
 
 		if (text != null)
-		{
 			text.text = "";
-		}
 	}
 }

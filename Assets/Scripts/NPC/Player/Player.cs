@@ -306,7 +306,8 @@ public class Player : NPC
 				weapons[emptySlot] = item;
 			}
 
-			TryAddSeenWeapon(item);
+			if (!GameManager.instance.Loading)
+				TryAddSeenWeapon(item);
 
 			if (emptySlot == weaponIndex)
 			{

@@ -69,6 +69,33 @@ public class Item : MonoBehaviour
 	/// Цена предмета
 	/// </summary>
 	public int price;
+	public int minPrice = 0;
+	public int maxPrice = 0;
+
+	private void OnEnable()
+	{
+		PluginController.Instance.OnFeaturesCoefficientUpdated += UpdateItemPrice;
+	}
+
+	private void OnDisable()
+	{
+		PluginController.Instance.OnFeaturesCoefficientUpdated -= UpdateItemPrice;
+	}
+
+	private void UpdateItemPrice()
+	{
+		if (price == 0 || minPrice == 0 || maxPrice == 0) return;
+
+		var coef = 0.6f * PluginController.Instance.GetFeatureCoefficient("STATUS")
+			+ 0.15f * PluginController.Instance.GetFeatureCoefficient("TRADE")
+			+ 0.25f * PluginController.Instance.GetFeatureCoefficient("RESRC M");
+		var range = (maxPrice - minPrice) / 2f;
+		var newPrice = MathF.Ceiling(minPrice + range + range * -coef);
+		Debug.Log($"price: {newPrice} range: {minPrice},{maxPrice}");
+		newPrice = Mathf.Clamp(newPrice, minPrice, maxPrice);
+
+		SetItem((int)newPrice);
+	}
 
 	protected virtual void Awake()
 	{

@@ -102,7 +102,7 @@ public class Destructible : EnvironmentObjectWithHealth
 			+ 0.05f * PluginController.Instance.GetFeatureCoefficient("LV&PROG")
 			+ 0.5f * PluginController.Instance.GetFeatureCoefficient("CHANCE")
 			+ 0.05f * PluginController.Instance.GetFeatureCoefficient("RESRC M")
-			+ 0.15f * PluginController.Instance.GetFeatureCoefficient("SCRCTY");
+			- 0.15f * PluginController.Instance.GetFeatureCoefficient("SCRCTY");
 		var amount = lootBaseAmount + MathF.Ceiling(lootAmountRange * coef);
 		amount = MathF.Max(amount, 0);
 		Debug.Log($"drop loot: {amount}");

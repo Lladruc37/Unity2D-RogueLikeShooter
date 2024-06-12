@@ -37,7 +37,7 @@ public class PluginController : MonoBehaviour, IDataPersistence
 	{
 		var changes = new Dictionary<PlayerTypes, float>
 		{
-			{ PlayerTypes.ACHIEVER, 0.4f },
+			{ PlayerTypes.PLAYER, 0.25f },
 			{ PlayerTypes.FREE_SPIRIT, 0.2f }
 		};
 		PlayerTypeTrigger(changes);
@@ -57,7 +57,7 @@ public class PluginController : MonoBehaviour, IDataPersistence
 	{
 		var changes = new Dictionary<PlayerTypes, float>
 		{
-			{ PlayerTypes.PLAYER, 0.15f }
+			{ PlayerTypes.PLAYER, 0.2f }
 		};
 		PlayerTypeTrigger(changes);
 	}
@@ -95,7 +95,7 @@ public class PluginController : MonoBehaviour, IDataPersistence
 	{
 		var changes = new Dictionary<PlayerTypes, float>
 		{
-			{ PlayerTypes.ACHIEVER, 0.3f },
+			{ PlayerTypes.ACHIEVER, 0.15f },
 			{ PlayerTypes.PLAYER, -0.1f }
 		};
 		PlayerTypeTrigger(changes);
@@ -125,8 +125,9 @@ public class PluginController : MonoBehaviour, IDataPersistence
 	{
 		var changes = new Dictionary<PlayerTypes, float>
 		{
-			{ PlayerTypes.ACHIEVER, 0.05f*amount },
-			{ PlayerTypes.PHILANTHROPIST, 0.05f*amount }
+			{ PlayerTypes.ACHIEVER, 0.0125f*amount },
+			{ PlayerTypes.PHILANTHROPIST, 0.025f*amount },
+			{ PlayerTypes.PLAYER, 0.0125f*amount }
 		};
 		PlayerTypeTrigger(changes);
 	}
@@ -135,7 +136,10 @@ public class PluginController : MonoBehaviour, IDataPersistence
 	{
 		// TODO: Update the profile & act accordingly
 		foreach (var profileChange in changesToUpdate)
+		{
 			PlayerProfileData.Profile[profileChange.Key] += profileChange.Value;
+			PlayerProfileData.Profile[profileChange.Key] = Mathf.Clamp(PlayerProfileData.Profile[profileChange.Key], ProfileMinCellValue, ProfileMaxCellValue);
+		}
 
 		UpdateFeaturesCoefficient();
 	}

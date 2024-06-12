@@ -145,7 +145,7 @@ public class Map_Generation : MonoBehaviour
 			ChangeLoadText("CREATING ENVIRONMENT");
 			yield return StartCoroutine(Map.tiles.environment_gen.Create());
 		}
-
+		Debug.Log($"rooms created at the end: {Map.roomObjs.Count}");
 		Debug.Log(Map.mapIsGenerated);
 		Map.mapIsGenerated = true;
 
@@ -436,7 +436,7 @@ public class Map_Generation : MonoBehaviour
 			+ 0.05f * PluginController.Instance.GetFeatureCoefficient("EXPLR")
 			+ 0.1f * PluginController.Instance.GetFeatureCoefficient("LV&PROG")
 			+ 0.35f * PluginController.Instance.GetFeatureCoefficient("CHANCE")
-			+ 0.15f * PluginController.Instance.GetFeatureCoefficient("SCRCTY");
+			- 0.15f * PluginController.Instance.GetFeatureCoefficient("SCRCTY");
 		var amount = secretRoomBaseAmount + MathF.Ceiling(secretRoomRange * coef);
 		amount = MathF.Max(0, amount);
 		Debug.Log($"secret rooms: {amount}");
@@ -551,22 +551,21 @@ public class Map_Generation : MonoBehaviour
 	{
 		Room prevRoom = Map.roomObjs[prevRoomIndex].GetComponent<Room>();
 
-		MoveRoomGenerator(prevRoom, direction);  //Сдвигаем в начало новой комнаты
+		MoveRoomGenerator(prevRoom, direction);
 
 		Vector2 roomstartpos = new Vector2(transform.position.x, transform.position.y);
 		Vector2 roomendpos = new Vector2(transform.position.x + RoomMaxWidth, transform.position.y + RoomMaxHeight);
 
 		bool fixDir = Check_All_Superimpose(roomstartpos, roomendpos);
-		//FixDir == true => комнаты пересекаются
 
 		for (int k = 1; k <= 4; k++)
 		{
 			if (fixDir == true)
 			{
-				direction = Increase_direction(direction);  //Меняем направление
+				direction = Increase_direction(direction);
 
 				prevRoom = Map.roomObjs[prevRoomIndex].GetComponent<Room>();
-				MoveRoomGenerator(prevRoom, direction);  //Двигаем в начало следующей комнаты
+				MoveRoomGenerator(prevRoom, direction);
 
 				roomstartpos = new Vector2(transform.position.x, transform.position.y);
 				roomendpos = new Vector2(transform.position.x + RoomMaxWidth, transform.position.y + RoomMaxHeight);
@@ -574,19 +573,13 @@ public class Map_Generation : MonoBehaviour
 				fixDir = Check_All_Superimpose(roomstartpos, roomendpos);
 
 				if (fixDir == false)
-				{
 					break;
-				}
 
-				if (k == 4) // Разветвление если не подошло 4 направления
+				if (k == 4)
 				{
+					if (prevRoomIndex == 0) return;
+
 					prevRoomIndex -= 1;
-					if (prevRoomIndex == 1)
-					{
-						Debug.Log("GGGGG");
-						return;  //Если дошло до ласт комнаты то GG
-					}
-					prevRoom = Map.roomObjs[prevRoomIndex].GetComponent<Room>();
 					k = 1;
 				}
 			}

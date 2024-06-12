@@ -18,7 +18,7 @@ public class LoadManager : MonoBehaviour
 				+ 0.05f * PluginController.Instance.GetFeatureCoefficient("WRLDBLD");
 			var amount = MathF.Ceiling(GameManager.instance.generator.roomIncreaseRange * coef);
 			amount = MathF.Max(0, amount);
-			Debug.Log($"room increase: {amount}");
+			Debug.Log($"room count increase: {amount} and total {GameManager.instance.generator.RoomsNow + amount}");
 			GameManager.instance.generator.RoomsNow = (int)MathF.Min(GameManager.instance.generator.RoomsNow + amount, GameManager.instance.generator.maxRooms);
 		}
 		Debug.Log("ITEM PHASE: " + ItemManager.instance.phaseNow);
