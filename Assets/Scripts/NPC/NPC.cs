@@ -225,6 +225,11 @@ public class NPC : MonoBehaviour
 
 	virtual public void DropLoot()
 	{
+		if (!PluginController.Instance.pluginEnabled)
+		{
+			Drop(loot, (int)MathF.Max(0, lootBaseAmount + MathF.Ceiling(UnityEngine.Random.Range(-lootAmountRange, lootAmountRange))), transform.position);
+			return;
+		}
 		var coef = 0.1f * PluginController.Instance.GetFeatureCoefficient("CHLGS")
 			+ 0.2f * PluginController.Instance.GetFeatureCoefficient("TRADE")
 			+ 0.05f * PluginController.Instance.GetFeatureCoefficient("LV&PROG")

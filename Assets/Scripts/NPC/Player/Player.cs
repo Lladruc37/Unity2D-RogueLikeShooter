@@ -84,14 +84,21 @@ public class Player : NPC
 		RefreshUI();
 		WakeUp();
 
-		// starting weapon
-		var coef = 0.2f * PluginController.Instance.GetFeatureCoefficient("STATUS")
-			+ 0.45f * PluginController.Instance.GetFeatureCoefficient("CHOICES")
-			+ 0.35f * PluginController.Instance.GetFeatureCoefficient("CHLGS");
-		var index = 2 + MathF.Floor(weaponsToInitialize.Count * coef);
-		index = MathF.Max(0, index);
-		index = MathF.Min(index, weaponsToInitialize.Count - 1);
-		Debug.Log($"starting weapon: {index}");
+		float index;
+
+		if (!PluginController.Instance.pluginEnabled)
+			index = UnityEngine.Random.Range(0, weaponsToInitialize.Count - 1);
+		else
+		{
+			// starting weapon
+			var coef = 0.2f * PluginController.Instance.GetFeatureCoefficient("STATUS")
+				+ 0.45f * PluginController.Instance.GetFeatureCoefficient("CHOICES")
+				+ 0.35f * PluginController.Instance.GetFeatureCoefficient("CHLGS");
+			index = 2 + MathF.Floor(weaponsToInitialize.Count * coef);
+			index = MathF.Max(0, index);
+			index = MathF.Min(index, weaponsToInitialize.Count - 1);
+			Debug.Log($"starting weapon: {index}");
+		}
 
 		ChangeWeapon((int)index);
 		var currentWeapon = weapons[(int)index];

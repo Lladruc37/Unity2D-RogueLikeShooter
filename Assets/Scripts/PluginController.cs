@@ -16,6 +16,7 @@ public class PluginController : MonoBehaviour, IDataPersistence
 
 	// plugin data
 	[SerializeField] private PluginData pluginData;
+	public bool pluginEnabled = true;
 
 	//current gameplay feature coefficient
 	public Dictionary<GameplayFeature, float> FeaturesCoefficient = new Dictionary<GameplayFeature, float>();
@@ -71,6 +72,8 @@ public class PluginController : MonoBehaviour, IDataPersistence
 				FeaturesCoefficient.Add(feature, newCoef);
 			}
 		}
+
+		if (!pluginEnabled) return;
 
 		OnFeaturesCoefficientUpdated?.Invoke(); // segons el player type fes x o y ???
 	}

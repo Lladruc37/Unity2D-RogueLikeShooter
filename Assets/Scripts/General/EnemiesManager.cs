@@ -84,6 +84,9 @@ public class EnemiesManager : ScriptableObject
 
 	private static int GetEnemiesAmount()
 	{
+		if (!PluginController.Instance.pluginEnabled)
+			return enemyBaseAmount + (int)MathF.Ceiling(UnityEngine.Random.Range(-enemyAmountRange, enemyAmountRange));
+
 		var coef = 0.5f * PluginController.Instance.GetFeatureCoefficient("CHLGS")
 			+ 0.15f * PluginController.Instance.GetFeatureCoefficient("EXPLR")
 			+ 0.35f * PluginController.Instance.GetFeatureCoefficient("LV&PROG");

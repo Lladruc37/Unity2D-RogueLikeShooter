@@ -402,25 +402,34 @@ public class Map_Generation : MonoBehaviour
 		{
 			yield return new WaitForSecondsRealtime(0.1f);
 			byte roomNumber = System.Convert.ToByte(roomsAmount + i);
-
 			int roombehind = System.Convert.ToByte(randomGenerator.Next(0, roomsAmount));  // комната сзади
-
-			var coef = 0.25f * PluginController.Instance.GetFeatureCoefficient("STATUS")
-				+ 0.3f * PluginController.Instance.GetFeatureCoefficient("TRADE")
-				+ 0.1f * PluginController.Instance.GetFeatureCoefficient("EXPLR")
-				+ 0.35f * PluginController.Instance.GetFeatureCoefficient("RESRC M");
 			var minWidth = RoomMinWidth / 2.7f;
 			var maxWidth = RoomMaxWidth / 2.7f;
-			var widthRange = (maxWidth - minWidth) / 2f;
-			var width = MathF.Ceiling(minWidth + widthRange + widthRange * coef);
-			width = Mathf.Clamp(width, minWidth, maxWidth);
-
 			var minHeight = RoomMinHeight / 3f;
 			var maxHeight = RoomMaxHeight / 3f;
-			var heightRange = (maxHeight - minHeight) / 2f;
-			var height = MathF.Ceiling(minHeight + heightRange + heightRange * coef);
-			height = Mathf.Clamp(height, minHeight, maxHeight);
-			Debug.Log($"shop width: {width}, shop height: {height}");
+			float width;
+			float height;
+
+			if (!PluginController.Instance.pluginEnabled)
+			{
+				width = Mathf.Clamp(MathF.Ceiling(UnityEngine.Random.Range(minWidth, maxWidth)), minWidth, maxWidth);
+				height = Mathf.Clamp(MathF.Ceiling(UnityEngine.Random.Range(minHeight, maxHeight)), minHeight, maxHeight);
+			}
+			else
+			{
+				var coef = 0.25f * PluginController.Instance.GetFeatureCoefficient("STATUS")
+					+ 0.3f * PluginController.Instance.GetFeatureCoefficient("TRADE")
+					+ 0.1f * PluginController.Instance.GetFeatureCoefficient("EXPLR")
+					+ 0.35f * PluginController.Instance.GetFeatureCoefficient("RESRC M");
+				var widthRange = (maxWidth - minWidth) / 2f;
+				width = MathF.Ceiling(minWidth + widthRange + widthRange * coef);
+				width = Mathf.Clamp(width, minWidth, maxWidth);
+
+				var heightRange = (maxHeight - minHeight) / 2f;
+				height = MathF.Ceiling(minHeight + heightRange + heightRange * coef);
+				height = Mathf.Clamp(height, minHeight, maxHeight);
+				Debug.Log($"shop width: {width}, shop height: {height}");
+			}
 
 			Direction4D randDirection = RandomDirection((float)randomGenerator.NextDouble());    //Рандомное направление
 
@@ -432,6 +441,9 @@ public class Map_Generation : MonoBehaviour
 
 	private int GetSecretRoomsAmount()
 	{
+		if (!PluginController.Instance.pluginEnabled)
+			return (int)MathF.Max(0, secretRoomBaseAmount + MathF.Ceiling(UnityEngine.Random.Range(-secretRoomRange, secretRoomRange)));
+
 		var coef = 0.35f * PluginController.Instance.GetFeatureCoefficient("CURIO")
 			+ 0.05f * PluginController.Instance.GetFeatureCoefficient("EXPLR")
 			+ 0.1f * PluginController.Instance.GetFeatureCoefficient("LV&PROG")

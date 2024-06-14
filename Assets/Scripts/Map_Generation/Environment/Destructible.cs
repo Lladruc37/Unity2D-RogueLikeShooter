@@ -97,6 +97,13 @@ public class Destructible : EnvironmentObjectWithHealth
 		if (loot == null) return;
 
 		lootDropped = true;
+
+		if (!PluginController.Instance.pluginEnabled)
+		{
+			Drop(loot, (int)MathF.Max(0, lootBaseAmount + MathF.Ceiling(UnityEngine.Random.Range(-lootAmountRange, lootAmountRange))), transform.position);
+			PluginTriggerController.Instance.OnPluginTrigger(PluginTriggerType.ENVIRONMENT_BREAK);
+			return;
+		}
 		var coef = 0.1f * PluginController.Instance.GetFeatureCoefficient("CHLGS")
 			+ 0.2f * PluginController.Instance.GetFeatureCoefficient("TRADE")
 			+ 0.05f * PluginController.Instance.GetFeatureCoefficient("LV&PROG")

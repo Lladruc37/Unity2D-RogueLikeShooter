@@ -63,6 +63,12 @@ public class ItemsSet : ScriptableObject
 						item.maxPrice = maxPrice;
 						item.minPrice = minPrice;
 
+						if (!PluginController.Instance.pluginEnabled)
+						{
+							item.SetItem((int)Mathf.Clamp(MathF.Ceiling(UnityEngine.Random.Range(minPrice, maxPrice)), minPrice, maxPrice));
+							return g;
+						}
+
 						var coef = 0.6f * PluginController.Instance.GetFeatureCoefficient("STATUS")
 							+ 0.15f * PluginController.Instance.GetFeatureCoefficient("TRADE")
 							+ 0.25f * PluginController.Instance.GetFeatureCoefficient("RESRC M");

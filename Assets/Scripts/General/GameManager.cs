@@ -225,6 +225,12 @@ public class GameManager : MonoBehaviour
 
 	private void SetMapType()
 	{
+		if (!PluginController.Instance.pluginEnabled)
+		{
+			overallUI.mainMenuUI.ChangeMapType((int)MathF.Ceiling(UnityEngine.Random.Range(-1f, 1f)));
+			return;
+		}
+
 		var coef = 0.25f * PluginController.Instance.GetFeatureCoefficient("CHOICES")
 			+ 0.4f * PluginController.Instance.GetFeatureCoefficient("LV&PROG")
 			+ 0.35f * PluginController.Instance.GetFeatureCoefficient("WRLDBLD");

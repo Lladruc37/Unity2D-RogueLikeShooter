@@ -194,15 +194,21 @@ public class Environment_Generation : ScriptableObject
 	public void CreateUnderWallDecoration(Room room, bool checkEnvCollision) //На крайних тайлах
 	{
 		List<int> objectsIndex = new List<int>();            // Типы объектов которые будут спавнится в комнате
+		float amount;
 
-		var coef = 0.25f * PluginController.Instance.GetFeatureCoefficient("TRADE")
-			+ 0.2f * PluginController.Instance.GetFeatureCoefficient("CURIO")
-			+ 0.4f * PluginController.Instance.GetFeatureCoefficient("CHANCE")
-			+ 0.1f * PluginController.Instance.GetFeatureCoefficient("RESRC M")
-			+ 0.05f * PluginController.Instance.GetFeatureCoefficient("WRLDBLD");
-		var amount = underWallObjectsBaseAmount + MathF.Ceiling(underWallObjectsRange * coef);
-		amount = MathF.Max(0, amount);
-		Debug.Log($"under wall objects: {amount}");
+		if (!PluginController.Instance.pluginEnabled)
+			amount = MathF.Max(0, underWallObjectsBaseAmount + MathF.Ceiling(UnityEngine.Random.Range(-underWallObjectsRange, underWallObjectsRange)));
+		else
+		{
+			var coef = 0.25f * PluginController.Instance.GetFeatureCoefficient("TRADE")
+				+ 0.2f * PluginController.Instance.GetFeatureCoefficient("CURIO")
+				+ 0.4f * PluginController.Instance.GetFeatureCoefficient("CHANCE")
+				+ 0.1f * PluginController.Instance.GetFeatureCoefficient("RESRC M")
+				+ 0.05f * PluginController.Instance.GetFeatureCoefficient("WRLDBLD");
+			amount = underWallObjectsBaseAmount + MathF.Ceiling(underWallObjectsRange * coef);
+			amount = MathF.Max(0, amount);
+			Debug.Log($"under wall objects: {amount}");
+		}
 
 		for (int i = 0; i < amount; i++)
 			objectsIndex.Add(UnityEngine.Random.Range(0, underWallsObjects.Length));
@@ -238,15 +244,21 @@ public class Environment_Generation : ScriptableObject
 	public void CreateSideToWallDecoration(Room room, bool checkEnvCollision)
 	{
 		var objectsIndex = new List<int>();
+		float amount;
 
-		var coef = 0.25f * PluginController.Instance.GetFeatureCoefficient("TRADE")
+		if (!PluginController.Instance.pluginEnabled)
+			amount = MathF.Max(0, sideWallObjectsBaseAmount + MathF.Ceiling(UnityEngine.Random.Range(-sideWallObjectsRange, sideWallObjectsRange)));
+		else
+		{
+			var coef = 0.25f * PluginController.Instance.GetFeatureCoefficient("TRADE")
 			+ 0.2f * PluginController.Instance.GetFeatureCoefficient("CURIO")
 			+ 0.4f * PluginController.Instance.GetFeatureCoefficient("CHANCE")
 			+ 0.1f * PluginController.Instance.GetFeatureCoefficient("RESRC M")
 			+ 0.05f * PluginController.Instance.GetFeatureCoefficient("WRLDBLD");
-		var amount = sideWallObjectsBaseAmount + MathF.Ceiling(sideWallObjectsRange * coef);
-		amount = MathF.Max(0, amount);
-		Debug.Log($"side wall objects: {amount}");
+			amount = sideWallObjectsBaseAmount + MathF.Ceiling(sideWallObjectsRange * coef);
+			amount = MathF.Max(0, amount);
+			Debug.Log($"side wall objects: {amount}");
+		}
 
 		for (int i = 0; i < amount; i++)
 			objectsIndex.Add(UnityEngine.Random.Range(0, sideWallObjects.Length));

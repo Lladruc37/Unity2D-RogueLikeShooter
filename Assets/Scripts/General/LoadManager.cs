@@ -11,6 +11,13 @@ public class LoadManager : MonoBehaviour
 		GameManager.instance.SetGenerationSeedRand();
 		if (GameManager.instance.generator.RoomsNow < GameManager.instance.generator.maxRooms)
 		{
+			if (!PluginController.Instance.pluginEnabled)
+			{
+				GameManager.instance.generator.RoomsNow = (int)MathF.Min(GameManager.instance.generator.RoomsNow + MathF.Max(0, MathF.Ceiling(UnityEngine.Random.Range(-GameManager.instance.generator.roomIncreaseRange, GameManager.instance.generator.roomIncreaseRange))), GameManager.instance.generator.maxRooms);
+				GameManager.instance.NextLevel();
+				return;
+			}
+
 			var coef = 0.05f * PluginController.Instance.GetFeatureCoefficient("CHOICES")
 				+ 0.15f * PluginController.Instance.GetFeatureCoefficient("CHLGS")
 				+ 0.4f * PluginController.Instance.GetFeatureCoefficient("EXPLR")

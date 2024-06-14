@@ -33,6 +33,15 @@ public class PluginControllerEditorWindow : Editor
 		}
 		else
 		{
+			EditorGUILayout.BeginHorizontal();
+
+			GUIModularTextField(ObjectNames.NicifyVariableName("pluginEnabled"));
+			controller.pluginEnabled = EditorGUILayout.Toggle(controller.pluginEnabled);
+
+			EditorGUILayout.EndHorizontal();
+
+			EditorGUILayout.Space();
+
 			//player profile
 			GUIPlayerProfile(options);
 

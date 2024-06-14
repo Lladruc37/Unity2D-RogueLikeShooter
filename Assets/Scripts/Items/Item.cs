@@ -86,6 +86,12 @@ public class Item : MonoBehaviour
 	{
 		if (price == 0 || minPrice == 0 || maxPrice == 0) return;
 
+		if (!PluginController.Instance.pluginEnabled)
+		{
+			SetItem((int)Mathf.Clamp(MathF.Ceiling(UnityEngine.Random.Range(minPrice, maxPrice)), minPrice, maxPrice));
+			return;
+		}
+
 		var coef = 0.6f * PluginController.Instance.GetFeatureCoefficient("STATUS")
 			+ 0.15f * PluginController.Instance.GetFeatureCoefficient("TRADE")
 			+ 0.25f * PluginController.Instance.GetFeatureCoefficient("RESRC M");
