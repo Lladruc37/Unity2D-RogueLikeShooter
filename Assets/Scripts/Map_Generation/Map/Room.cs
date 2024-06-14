@@ -241,9 +241,9 @@ public class Room : Placement
 		{
 			OpenDoors();
 
-			PluginController.Instance.OnRoomClear();
+			PluginTriggerController.Instance.OnPluginTrigger(PluginTriggerType.ROOM_CLEAR);
 			if (playerOnEnterHealth == Player.instance.stats.curHealth)
-				PluginController.Instance.OnRoomClearNoDamage();
+				PluginTriggerController.Instance.OnPluginTrigger(PluginTriggerType.ROOM_CLEAR_NO_DMG);
 		}
 	}
 

@@ -1,5 +1,60 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1599968497536405823
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1802599147494266308}
+  - component: {fileID: 8431984812392671989}
+  m_Layer: 0
+  m_Name: TriggerController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1802599147494266308
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1599968497536405823}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4828031696264195971}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8431984812392671989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1599968497536405823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a0bfa3910a46a546819dc6df54dc161, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggers:
+  - {fileID: 11400000, guid: a47ab3dd3e48dd04dac1b2a249fd7ff9, type: 2}
+  - {fileID: 11400000, guid: 13fe43e0e4c20224bbe322f3a0912118, type: 2}
+  - {fileID: 11400000, guid: 29988ffb40f3e4343a4ae2f4946ac550, type: 2}
+  - {fileID: 11400000, guid: 20a1e9da64ad28644a3a0d55d4be172c, type: 2}
+  - {fileID: 11400000, guid: 89188d3c4603b5a47bd2149aa7afc808, type: 2}
+  - {fileID: 11400000, guid: f258df6381c3e2a4c916507a349c69bf, type: 2}
+  - {fileID: 11400000, guid: 0f3535e5eeb7e524fb3a6924e6007d2f, type: 2}
+  - {fileID: 11400000, guid: 7efc03f3bede5814aaba0f3d7b0d9ed0, type: 2}
+  - {fileID: 11400000, guid: 029180cfb86f81f46a700fffc6d6349e, type: 2}
+  - {fileID: 11400000, guid: d379865b51075cc478d316989e5b1fb6, type: 2}
 --- !u!1 &2568468732277605260
 GameObject:
   m_ObjectHideFlags: 0
@@ -77,8 +132,9 @@ Transform:
   m_Children:
   - {fileID: 7903106232025931661}
   - {fileID: 1680171929778533537}
+  - {fileID: 1802599147494266308}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &24201045976859225
 MonoBehaviour:

@@ -8,7 +8,7 @@ public class Coin : MonoBehaviour
 		if (collision.CompareTag("Player"))
 		{
 			collision.GetComponent<Player>().coins += 1;
-			PluginController.Instance.OnMoneyEarned();
+			PluginTriggerController.Instance.OnPluginTrigger(PluginTriggerType.MONEY_EARNED);
 			collision.GetComponent<Player>().actionBar.RefreshStats();
 			Destroy(this.gameObject);
 		}

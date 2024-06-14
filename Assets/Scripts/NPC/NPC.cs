@@ -150,7 +150,7 @@ public class NPC : MonoBehaviour
 		isAlive = false;
 
 		if (npcType == NPCType.Enemy)
-			PluginController.Instance.OnEnemyDeath();
+			PluginTriggerController.Instance.OnPluginTrigger(PluginTriggerType.ENEMY_DEATH);
 
 		yield return 0;
 	}

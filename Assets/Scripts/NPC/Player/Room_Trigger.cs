@@ -78,9 +78,9 @@ public class Room_Trigger : MonoBehaviour
 				player.room.playerOnEnterHealth = player.stats.curHealth;
 
 				if (player.room.roomType == roomType.shop)
-					PluginController.Instance.OnShopEnter();
+					PluginTriggerController.Instance.OnPluginTrigger(PluginTriggerType.SHOP_ENTER);
 				else if (player.room.roomType == roomType.secret)
-					PluginController.Instance.OnSecretRoomEnter();
+					PluginTriggerController.Instance.OnPluginTrigger(PluginTriggerType.SECRET_ROOM_ENTER);
 			}
 
 		}

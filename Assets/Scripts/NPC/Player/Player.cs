@@ -109,7 +109,7 @@ public class Player : NPC
 				return;
 		}
 		seenWeapons.Add(w);
-		PluginController.Instance.OnWeaponAcquire();
+		PluginTriggerController.Instance.OnPluginTrigger(PluginTriggerType.WEAPON_ACQUIRE);
 	}
 
 	/// <summary>
@@ -322,7 +322,7 @@ public class Player : NPC
 			if (item.price != 0)
 			{
 				coins -= item.price;
-				PluginController.Instance.OnMoneyUsed(item.price);
+				PluginTriggerController.Instance.OnPluginTrigger(PluginTriggerType.MONEY_USED, item.price);
 				RefreshStats();
 			}
 
@@ -443,7 +443,7 @@ public class Player : NPC
 					if (item.price != 0)
 					{
 						coins -= item.price;
-						PluginController.Instance.OnMoneyUsed(item.price);
+						PluginTriggerController.Instance.OnPluginTrigger(PluginTriggerType.MONEY_USED, item.price);
 						RefreshStats();
 					}
 					items[emptySlot] = item.gameObject;
@@ -457,7 +457,7 @@ public class Player : NPC
 				if (item.price != 0)
 				{
 					coins -= item.price;
-					PluginController.Instance.OnMoneyUsed(item.price);
+					PluginTriggerController.Instance.OnPluginTrigger(PluginTriggerType.MONEY_USED, item.price);
 					RefreshStats();
 				}
 				items[itemIndex] = item.gameObject;
@@ -476,7 +476,7 @@ public class Player : NPC
 				if (item.price != 0)
 				{
 					coins -= item.price;
-					PluginController.Instance.OnMoneyUsed(item.price);
+					PluginTriggerController.Instance.OnPluginTrigger(PluginTriggerType.MONEY_USED, item.price);
 					RefreshStats();
 				}
 				return true;

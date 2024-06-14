@@ -107,7 +107,7 @@ public class Destructible : EnvironmentObjectWithHealth
 		amount = MathF.Max(amount, 0);
 		Debug.Log($"drop loot: {amount}");
 		Drop(loot, (int)amount, transform.position);
-		PluginController.Instance.OnEnvironmentBreak();
+		PluginTriggerController.Instance.OnPluginTrigger(PluginTriggerType.ENVIRONMENT_BREAK);
 	}
 
 	public void Drop(GameObject loot, int amount, Vector2 position)
