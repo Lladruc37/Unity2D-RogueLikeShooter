@@ -86,6 +86,70 @@ public class FileDataHandler
 		}
 	}
 
+	public void Save(SurveyDataRun newData)
+	{
+		if (string.IsNullOrEmpty(dataDirPath) || string.IsNullOrEmpty(dataFileName))
+			return;
+
+		SurveyData oldData = new SurveyData();
+		var fullPath = Path.Combine(dataDirPath, dataFileName);
+		Debug.Log(fullPath);
+
+		if (File.Exists(fullPath))
+		{
+			try
+			{
+				var dataToLoad = "";
+				using (FileStream stream = new FileStream(fullPath, FileMode.Open))
+				{
+					using (StreamReader reader = new StreamReader(stream))
+					{
+						dataToLoad = reader.ReadToEnd();
+					}
+				}
+
+				if (useEncryption)
+					dataToLoad = EncryptDecrypt(dataToLoad);
+
+				oldData = JsonUtility.FromJson<SurveyData>(dataToLoad);
+
+			}
+			catch (Exception e)
+			{
+				Debug.LogError($"Error trying to load data from file in: {fullPath}\n {e}");
+			}
+		}
+
+		//------------------------------------
+
+		try
+		{
+			Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+
+			if (oldData.runs == null || oldData.runs.Count == 0)
+			{
+				oldData = new SurveyData
+				{
+					testGroup = SurveyController.Instance.surveyData.testGroup
+				};
+			}
+			oldData.runs.Add(newData);
+			var dataToStore = JsonUtility.ToJson(oldData);
+
+			if (useEncryption)
+				dataToStore = EncryptDecrypt(dataToStore);
+
+			using (StreamWriter writer = new StreamWriter(fullPath))
+			{
+				writer.Write(dataToStore);
+			}
+		}
+		catch (Exception e)
+		{
+			Debug.LogError($"Error trying to save data to file in: {fullPath}\n {e}");
+		}
+	}
+
 	// encrypt & decrypt data using encryption code word
 	private string EncryptDecrypt(string data)
 	{

@@ -10,8 +10,18 @@ public class EndGame_UI : MonoBehaviour
 	public Text shotsFired;
 	public Text timePlayed;
 
-	public void Show()
+	public Button restartButton;
+	public Button mainMenuButton;
+	public Button exitButton;
+	public Button takeSurveyButton;
+
+	public void Show(bool takingSurvey = false)
 	{
+		restartButton.gameObject.SetActive(!takingSurvey);
+		mainMenuButton.gameObject.SetActive(!takingSurvey);
+		exitButton.gameObject.SetActive(!takingSurvey);
+		takeSurveyButton.gameObject.SetActive(takingSurvey);
+
 		enemiesDefeated.text = "Enemies Defeated: " + Player.instance.gameStatistic.EnemiesDefeatedCount;
 		roomsCount.text = "Rooms: " + Player.instance.gameStatistic.RoomsCount;
 		shotsFired.text = "Shots Fired: " + Player.instance.gameStatistic.ShotsBeenFired;

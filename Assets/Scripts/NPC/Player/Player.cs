@@ -7,6 +7,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Статистика игры
 /// </summary>
+[Serializable]
 public struct GameStatistic
 {
 	public int EnemiesDefeatedCount;

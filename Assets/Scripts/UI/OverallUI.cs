@@ -7,6 +7,7 @@ public class OverallUI : MonoBehaviour
 	public MainMenu mainMenuUI;
 	public Pause_Menu pauseUI;
 	public EndGame_UI endGameUI;
+	public Survey_UI Survey_UI;
 
 	void Start()
 	{
@@ -121,6 +122,19 @@ public class OverallUI : MonoBehaviour
 
 	public void EndGame()
 	{
-		endGameUI.Show();
+		endGameUI.Show(SurveyController.Instance.takingSurvey);
+	}
+
+	public void StartSurveyMenuOption()
+	{
+		SurveyController.Instance.SetupRun(1);
+		NewGame();
+	}
+
+	public void OpenSurvey()
+	{
+		endGameUI.canvas.enabled = false;
+		Survey_UI.gameObject.SetActive(true);
+		Survey_UI.OpenSurvey();
 	}
 }
