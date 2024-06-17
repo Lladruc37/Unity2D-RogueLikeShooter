@@ -40,6 +40,16 @@ public class EndGame_UI : MonoBehaviour
 		canvas.enabled = true;
 	}
 
+	public void Hide()
+	{
+		restartButton.gameObject.SetActive(false);
+		mainMenuButton.gameObject.SetActive(false);
+		exitButton.gameObject.SetActive(false);
+		takeSurveyButton.gameObject.SetActive(false);
+		background.color = new Color(0, 0, 0, 0);
+		canvas.enabled = false;
+	}
+
 	public void MainMenu()
 	{
 		background.color = new Color(0, 0, 0, 0);

@@ -13,7 +13,7 @@ public class LoadManager : MonoBehaviour
 		{
 			if (!PluginController.Instance.pluginEnabled)
 			{
-				GameManager.instance.generator.RoomsNow = (int)MathF.Min(GameManager.instance.generator.RoomsNow + MathF.Max(0, MathF.Ceiling(UnityEngine.Random.Range(-GameManager.instance.generator.roomIncreaseRange, GameManager.instance.generator.roomIncreaseRange))), GameManager.instance.generator.maxRooms);
+				GameManager.instance.generator.RoomsNow = GameManager.instance.roomsAmountStart;
 				GameManager.instance.NextLevel();
 				return;
 			}
@@ -25,7 +25,7 @@ public class LoadManager : MonoBehaviour
 				+ 0.05f * PluginController.Instance.GetFeatureCoefficient("WRLDBLD");
 			var amount = MathF.Ceiling(GameManager.instance.generator.roomIncreaseRange * coef);
 			amount = MathF.Max(0, amount);
-			Debug.Log($"room count increase: {amount} and total {GameManager.instance.generator.RoomsNow + amount}");
+			Debug.Log($"room count increase by: {amount} and total {GameManager.instance.generator.RoomsNow + amount}");
 			GameManager.instance.generator.RoomsNow = (int)MathF.Min(GameManager.instance.generator.RoomsNow + amount, GameManager.instance.generator.maxRooms);
 		}
 		Debug.Log("ITEM PHASE: " + ItemManager.instance.phaseNow);

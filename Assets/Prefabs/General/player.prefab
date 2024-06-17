@@ -2787,6 +2787,11 @@ MonoBehaviour:
   actionBar: {fileID: 3298910833099550357}
   sightCamera: {fileID: 3298910833174654038}
   mapCamera: {fileID: 3298910833816210598}
+  gameStatistic:
+    EnemiesDefeatedCount: 0
+    RoomsCount: 0
+    ShotsBeenFired: 0
+    timePlayed: 0
   corridor: {fileID: 0}
   allowDamage: 1
   invicible: 0

@@ -34,6 +34,7 @@ public class Survey_UI : MonoBehaviour
 
 	public void OpenSurvey()
 	{
+		GameManager.instance.audioManager.PlayMusic(MusicType.main);
 		questionNumber = SurveyController.Instance.profileQuestion ? 0 : 1;
 		SetUpQuestion();
 	}
@@ -86,7 +87,7 @@ public class Survey_UI : MonoBehaviour
 				data.gameStats = Player.instance.gameStatistic;
 				DataPersistenceManager.Instance.SaveSurveyRun(data);
 
-				if (SurveyController.Instance.RunNumber == 3)
+				if (SurveyController.Instance.RunNumber == 2)
 				{
 					endOfSurvey.SetActive(true);
 					answerSlider.gameObject.SetActive(false);
@@ -100,7 +101,7 @@ public class Survey_UI : MonoBehaviour
 				this.gameObject.SetActive(false);
 				SurveyController.Instance.SetupNextRun();
 				GameManager.instance.generator.RoomsNow = GameManager.instance.roomsAmountStart;
-				GameManager.instance.SetGenerationSeedRand();
+				//GameManager.instance.SetGenerationSeedRand();
 				GameManager.instance.loadManager.RestartGame();
 				break;
 			default:

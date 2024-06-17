@@ -81,6 +81,7 @@ public class OverallUI : MonoBehaviour
 	{
 		mainMenuUI.Show(false);
 		pauseUI.Show(false);
+		Survey_UI.gameObject.SetActive(false);
 	}
 
 	public void TurnOnMenu()
@@ -127,13 +128,14 @@ public class OverallUI : MonoBehaviour
 
 	public void StartSurveyMenuOption()
 	{
+		GameManager.instance.SetGenerationSeedRand();
 		SurveyController.Instance.SetupRun(1);
 		NewGame();
 	}
 
 	public void OpenSurvey()
 	{
-		endGameUI.canvas.enabled = false;
+		endGameUI.Hide();
 		Survey_UI.gameObject.SetActive(true);
 		Survey_UI.OpenSurvey();
 	}

@@ -30,7 +30,6 @@ public class FileDataHandler
 		if (!string.IsNullOrEmpty(dataDirPath) || !string.IsNullOrEmpty(dataFileName))
 		{
 			var fullPath = Path.Combine(dataDirPath, dataFileName);
-			Debug.Log(fullPath);
 			if (File.Exists(fullPath))
 			{
 				try
@@ -93,8 +92,6 @@ public class FileDataHandler
 
 		SurveyData oldData = new SurveyData();
 		var fullPath = Path.Combine(dataDirPath, dataFileName);
-		Debug.Log(fullPath);
-
 		if (File.Exists(fullPath))
 		{
 			try

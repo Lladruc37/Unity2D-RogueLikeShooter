@@ -442,7 +442,7 @@ public class Map_Generation : MonoBehaviour
 	private int GetSecretRoomsAmount()
 	{
 		if (!PluginController.Instance.pluginEnabled)
-			return (int)MathF.Max(0, secretRoomBaseAmount + MathF.Ceiling(UnityEngine.Random.Range(-secretRoomRange, secretRoomRange)));
+			return secretRoomBaseAmount;
 
 		var coef = 0.35f * PluginController.Instance.GetFeatureCoefficient("CURIO")
 			+ 0.05f * PluginController.Instance.GetFeatureCoefficient("EXPLR")

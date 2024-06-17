@@ -100,7 +100,7 @@ public class Destructible : EnvironmentObjectWithHealth
 
 		if (!PluginController.Instance.pluginEnabled)
 		{
-			Drop(loot, (int)MathF.Max(0, lootBaseAmount + MathF.Ceiling(UnityEngine.Random.Range(-lootAmountRange, lootAmountRange))), transform.position);
+			Drop(loot, lootBaseAmount, transform.position);
 			PluginTriggerController.Instance.OnPluginTrigger(PluginTriggerType.ENVIRONMENT_BREAK);
 			return;
 		}

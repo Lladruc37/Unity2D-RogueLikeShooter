@@ -29,7 +29,7 @@ public class SurveyController : MonoBehaviour
 			case 1: //base game
 				profileQuestion = true;
 				PluginController.Instance.ResetProfile();
-				//PluginController.Instance.pluginEnabled = false;
+				PluginController.Instance.pluginEnabled = false;
 				surveyData = new SurveyData();
 				var runData = new SurveyDataRun
 				{
@@ -44,10 +44,30 @@ public class SurveyController : MonoBehaviour
 					_ => '-',
 				};
 				break;
-			case 2: //using player's answers / no changes, base game
+			case 2: //A: no changes, base game / B: using player's answers / C: different profile
 				profileQuestion = false;
-				break;
-			case 3: //different profile
+				PluginController.Instance.pluginEnabled = true;
+				switch (surveyData.testGroup)
+				{
+					case 'A':
+						PluginController.Instance.ResetProfile();
+						PluginController.Instance.pluginEnabled = false;
+						break;
+					case 'B':
+						foreach (var type in surveyData.runs[0].question0.Profile)
+							PluginController.Instance.PlayerProfileData.Profile[type.Key] = type.Value;
+
+						PluginController.Instance.UpdateFeaturesCoefficient();
+						break;
+					case 'C':
+						foreach (var type in surveyData.runs[0].finalProfile.Profile)
+							PluginController.Instance.PlayerProfileData.Profile[type.Key] = (10 - type.Value);
+
+						PluginController.Instance.UpdateFeaturesCoefficient();
+						break;
+					default:
+						break;
+				}
 				break;
 			default:
 				break;

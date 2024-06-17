@@ -197,7 +197,7 @@ public class Environment_Generation : ScriptableObject
 		float amount;
 
 		if (!PluginController.Instance.pluginEnabled)
-			amount = MathF.Max(0, underWallObjectsBaseAmount + MathF.Ceiling(UnityEngine.Random.Range(-underWallObjectsRange, underWallObjectsRange)));
+			amount = underWallObjectsBaseAmount;
 		else
 		{
 			var coef = 0.25f * PluginController.Instance.GetFeatureCoefficient("TRADE")
@@ -247,7 +247,7 @@ public class Environment_Generation : ScriptableObject
 		float amount;
 
 		if (!PluginController.Instance.pluginEnabled)
-			amount = MathF.Max(0, sideWallObjectsBaseAmount + MathF.Ceiling(UnityEngine.Random.Range(-sideWallObjectsRange, sideWallObjectsRange)));
+			amount = sideWallObjectsBaseAmount;
 		else
 		{
 			var coef = 0.25f * PluginController.Instance.GetFeatureCoefficient("TRADE")

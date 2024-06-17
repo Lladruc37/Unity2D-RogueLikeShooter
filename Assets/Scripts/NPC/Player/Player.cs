@@ -88,7 +88,7 @@ public class Player : NPC
 		float index;
 
 		if (!PluginController.Instance.pluginEnabled)
-			index = UnityEngine.Random.Range(0, weaponsToInitialize.Count - 1);
+			index = 2; //shotgun
 		else
 		{
 			// starting weapon
@@ -592,6 +592,7 @@ public class Player : NPC
 
 	public override IEnumerator Die(bool destroy)
 	{
+		Debug.Log("Player Death");
 		weapon.Hide();
 		weapon = null;
 		weapons[weaponIndex] = null;

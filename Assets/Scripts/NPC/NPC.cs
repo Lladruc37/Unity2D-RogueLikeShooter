@@ -227,7 +227,7 @@ public class NPC : MonoBehaviour
 	{
 		if (!PluginController.Instance.pluginEnabled)
 		{
-			Drop(loot, (int)MathF.Max(0, lootBaseAmount + MathF.Ceiling(UnityEngine.Random.Range(-lootAmountRange, lootAmountRange))), transform.position);
+			Drop(loot, lootBaseAmount, transform.position);
 			return;
 		}
 		var coef = 0.1f * PluginController.Instance.GetFeatureCoefficient("CHLGS")

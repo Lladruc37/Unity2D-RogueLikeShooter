@@ -76,7 +76,7 @@ public class EnemiesManager : ScriptableObject
 					// TODO: THIS SPAWNS BOSS
 					GameObject enemy = GetEnemy(EnemyType.Boss);
 					if (enemy != null)
-						SpawnEnemy(room, enemy, new Vector2(room.width / 2f, room.height / 2f), true);
+						SpawnEnemy(room, enemy, new Vector2(room.transform.position.x + room.width / 2f, room.transform.position.y + room.height / 2f));
 				}
 			}
 		}
@@ -85,7 +85,7 @@ public class EnemiesManager : ScriptableObject
 	private static int GetEnemiesAmount()
 	{
 		if (!PluginController.Instance.pluginEnabled)
-			return enemyBaseAmount + (int)MathF.Ceiling(UnityEngine.Random.Range(-enemyAmountRange, enemyAmountRange));
+			return enemyBaseAmount;
 
 		var coef = 0.5f * PluginController.Instance.GetFeatureCoefficient("CHLGS")
 			+ 0.15f * PluginController.Instance.GetFeatureCoefficient("EXPLR")
@@ -112,7 +112,7 @@ public class EnemiesManager : ScriptableObject
 		yield return new WaitForSeconds(spawnWaitTime);
 		Destroy(animation);
 
-		SpawnEnemy(room, enemy, randomPos, false);
+		SpawnEnemy(room, enemy, randomPos);
 		yield return 0;
 	}
 
@@ -130,24 +130,15 @@ public class EnemiesManager : ScriptableObject
 		return newEnemy;
 	}
 
-	public static GameObject SpawnEnemy(Room room, GameObject enemy, Vector2 position, bool localPosition)
+	public static GameObject SpawnEnemy(Room room, GameObject enemy, Vector2 position)
 	{
-		if (localPosition)
-		{
-			position = new Vector2(position.x + room.start.x, position.y + room.start.y);
-		}
-		if (room.smartGrid.CheckFloorCollision(position))
-		{
-			GameObject newEnemy = Instantiate(enemy, position, Quaternion.identity, room.enemiesGrid.transform);
+		GameObject newEnemy = Instantiate(enemy, position, Quaternion.identity, room.enemiesGrid.transform);
 
-			Enemy en = newEnemy.GetComponentInChildren<Enemy>();
-			en.room = room;
+		Enemy en = newEnemy.GetComponentInChildren<Enemy>();
+		en.room = room;
 
-			room.Enemies.Add(en);
+		room.Enemies.Add(en);
 
-			return newEnemy;
-		}
-
-		return null;
+		return newEnemy;
 	}
 }

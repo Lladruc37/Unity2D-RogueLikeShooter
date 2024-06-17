@@ -74,6 +74,7 @@ public class DataPersistenceManager : MonoBehaviour
 				obj.LoadProfile(profileData);
 		}
 
+		// TODO: TAKE THIS OUT
 		Debug.Log("Loaded profile");
 		Debug.Log("DEBUG:");
 		foreach (var i in profileData.Profile)
@@ -97,6 +98,7 @@ public class DataPersistenceManager : MonoBehaviour
 
 		profileDataHandler.Save(profileData);
 
+		// TODO: TAKE THIS OUT
 		Debug.Log("Saved profile");
 		Debug.Log("DEBUG:");
 		foreach (var i in profileData.Profile)
