@@ -13,7 +13,8 @@ public class PluginTriggerControllerEditorWindow : Editor
 
 	public override void OnInspectorGUI()
 	{
-		if (Application.isPlaying)
+		var serializedController = new SerializedObject(controller);
+		if (Application.isPlaying && !serializedController.FindProperty("CanEditDuringPlayMode").boolValue)
 			GUI.enabled = false;
 
 		EditorGUILayout.Space();
@@ -27,15 +28,18 @@ public class PluginTriggerControllerEditorWindow : Editor
 			GUIModularTextField("Enter play mode once to finish plugin setup!");
 		}
 		else
+		{
 			GUITriggers();
+			EditorGUILayout.Space();
+			GUICanEditDuringPlayMode(serializedController);
+		}
 
 		EditorGUILayout.Space();
 
-		var a = new SerializedObject(controller);
-		EditorGUILayout.PropertyField(a.FindProperty("triggers"));
+		EditorGUILayout.PropertyField(serializedController.FindProperty("triggers"));
 
 		if (GUI.changed)
-			a.ApplyModifiedProperties();
+			serializedController.ApplyModifiedProperties();
 	}
 
 	private static void GUITitle()
@@ -70,6 +74,24 @@ public class PluginTriggerControllerEditorWindow : Editor
 		}
 		EditorGUILayout.EndVertical();
 	}
+
+	private void GUICanEditDuringPlayMode(SerializedObject serializedController)
+	{
+		SerializedProperty canEditDuringPlayMode = serializedController.FindProperty("CanEditDuringPlayMode");
+
+		EditorGUILayout.BeginHorizontal();
+		EditorGUILayout.BeginHorizontal();
+
+		GUIModularTextField(ObjectNames.NicifyVariableName(canEditDuringPlayMode.name + ":"));
+		canEditDuringPlayMode.boolValue = EditorGUILayout.Toggle(canEditDuringPlayMode.boolValue);
+
+		EditorGUILayout.EndHorizontal();
+		EditorGUILayout.BeginHorizontal();
+		EditorGUILayout.Space();
+		EditorGUILayout.EndHorizontal();
+		EditorGUILayout.EndHorizontal();
+	}
+
 
 	private static void GUIModularTextField(string title, GUIStyle style = null)
 	{

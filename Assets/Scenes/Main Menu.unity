@@ -255,12 +255,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8431984812392671989, guid: eb8304fc1171e7d4b9cd2a80f1de323e,
+        type: 3}
+      propertyPath: CanEditDuringPlayMode
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb8304fc1171e7d4b9cd2a80f1de323e, type: 3}
---- !u!84 &1058551290
+--- !u!84 &616771774
 RenderTexture:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1581,7 +1586,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 1058551290}
+      objectReference: {fileID: 616771774}
     - target: {fileID: 8374798866330937824, guid: cce4adeaa46784d43ae8080f7c45fb46,
         type: 3}
       propertyPath: m_RootOrder

@@ -183,12 +183,12 @@ MonoBehaviour:
   bulletObj: {fileID: 1018501821291328, guid: 39e879c0dfcb3ab489d9f9b25b793b2f, type: 3}
   bullet_speed: 7
   cast: 0
-  timeBetweenCast: 5
+  timeBetweenCast: 3
   stageNow: 0
   firstStageHealth: 0
   secondStageHealth: 0
   thirdStageHealth: 0
-  timeToSpawnSlime: 15
+  timeToSpawnSlime: 10
   slime: {fileID: 5832263296915253553, guid: d6fa0b8f73310e943a2561b9776c68da, type: 3}
   slimeSpawnAnimator: {fileID: 6574285369131705787, guid: ba7fd1f5db6263349b2c25b1c872186f,
     type: 3}
@@ -765,7 +765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05d35a3c93c66d74c8f197d9084083bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 2500
+  _maxHealth: 3000
   _curHealth: 0
   _maxArmor: 0
   _curArmor: 0

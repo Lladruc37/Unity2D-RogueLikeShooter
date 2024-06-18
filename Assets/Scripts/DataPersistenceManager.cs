@@ -37,11 +37,12 @@ public class DataPersistenceManager : MonoBehaviour
 	private void Start()
 	{
 		Debug.Log(Application.persistentDataPath);
+		Debug.Log(Application.dataPath);
 		if (!string.IsNullOrEmpty(profileFileName))
 		{
 			var filePath = Path.Combine(Application.persistentDataPath, surveyFileName);
 			profileDataHandler = new FileDataHandler(Application.persistentDataPath, profileFileName, useEncryption);
-			surveyDataHandler = new FileDataHandler(Application.persistentDataPath, surveyFileName, useEncryption);
+			surveyDataHandler = new FileDataHandler(Application.dataPath, surveyFileName, useEncryption);
 			try
 			{
 				if (File.Exists(filePath))

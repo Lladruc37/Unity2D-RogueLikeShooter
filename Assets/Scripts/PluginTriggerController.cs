@@ -21,6 +21,7 @@ public class PluginTriggerController : MonoBehaviour
 	public static PluginTriggerController Instance { get; private set; }
 	public static bool Initialized = false;
 
+	public bool CanEditDuringPlayMode = true;
 	public List<PluginTrigger> triggers;
 
 	private void Awake()
