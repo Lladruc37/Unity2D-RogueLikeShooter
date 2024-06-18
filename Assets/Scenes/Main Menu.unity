@@ -265,7 +265,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb8304fc1171e7d4b9cd2a80f1de323e, type: 3}
---- !u!84 &616771774
+--- !u!84 &2120919259
 RenderTexture:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -555,6 +555,11 @@ PrefabInstance:
       propertyPath: m_Size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2066152368444699729, guid: 4bdf196f59d8d5541ab97488faedfa7f,
+        type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2208903418024713514, guid: 4bdf196f59d8d5541ab97488faedfa7f,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -608,6 +613,11 @@ PrefabInstance:
     - target: {fileID: 3273461177460401531, guid: 4bdf196f59d8d5541ab97488faedfa7f,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273461177460401531, guid: 4bdf196f59d8d5541ab97488faedfa7f,
+        type: 3}
+      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3413032162932507284, guid: 4bdf196f59d8d5541ab97488faedfa7f,
@@ -1582,11 +1592,51 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 2583757694096413134, guid: cce4adeaa46784d43ae8080f7c45fb46,
+        type: 3}
+      propertyPath: m_NormalizedViewPortRect.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2583757694096413134, guid: cce4adeaa46784d43ae8080f7c45fb46,
+        type: 3}
+      propertyPath: m_NormalizedViewPortRect.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2583757694096413134, guid: cce4adeaa46784d43ae8080f7c45fb46,
+        type: 3}
+      propertyPath: m_NormalizedViewPortRect.width
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2583757694096413134, guid: cce4adeaa46784d43ae8080f7c45fb46,
+        type: 3}
+      propertyPath: m_NormalizedViewPortRect.height
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5092007861876203125, guid: cce4adeaa46784d43ae8080f7c45fb46,
         type: 3}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 616771774}
+      objectReference: {fileID: 2120919259}
+    - target: {fileID: 5092007861876203125, guid: cce4adeaa46784d43ae8080f7c45fb46,
+        type: 3}
+      propertyPath: m_NormalizedViewPortRect.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5092007861876203125, guid: cce4adeaa46784d43ae8080f7c45fb46,
+        type: 3}
+      propertyPath: m_NormalizedViewPortRect.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5092007861876203125, guid: cce4adeaa46784d43ae8080f7c45fb46,
+        type: 3}
+      propertyPath: m_NormalizedViewPortRect.width
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5092007861876203125, guid: cce4adeaa46784d43ae8080f7c45fb46,
+        type: 3}
+      propertyPath: m_NormalizedViewPortRect.height
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8374798866330937824, guid: cce4adeaa46784d43ae8080f7c45fb46,
         type: 3}
       propertyPath: m_RootOrder
