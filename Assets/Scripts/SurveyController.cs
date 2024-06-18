@@ -54,7 +54,7 @@ public class SurveyController : MonoBehaviour
 						PluginController.Instance.pluginEnabled = false;
 						break;
 					case 'B':
-						foreach (var type in surveyData.runs[0].question0.Profile)
+						foreach (var type in surveyData.runs[0].finalProfile.Profile)
 							PluginController.Instance.PlayerProfileData.Profile[type.Key] = type.Value;
 
 						PluginController.Instance.UpdateFeaturesCoefficient();
