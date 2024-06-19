@@ -265,7 +265,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb8304fc1171e7d4b9cd2a80f1de323e, type: 3}
---- !u!84 &2120919259
+--- !u!84 &1559149256
 RenderTexture:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1616,7 +1616,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 2120919259}
+      objectReference: {fileID: 1559149256}
     - target: {fileID: 5092007861876203125, guid: cce4adeaa46784d43ae8080f7c45fb46,
         type: 3}
       propertyPath: m_NormalizedViewPortRect.x
