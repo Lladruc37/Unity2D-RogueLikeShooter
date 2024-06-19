@@ -95,17 +95,21 @@ public class Player : NPC
 			var coef = 0.2f * PluginController.Instance.GetFeatureCoefficient("STATUS")
 				+ 0.45f * PluginController.Instance.GetFeatureCoefficient("CHOICES")
 				+ 0.35f * PluginController.Instance.GetFeatureCoefficient("CHLGS");
-			index = 2 + MathF.Floor(weaponsToInitialize.Count * coef);
-			index = MathF.Max(0, index);
+			index = 2 + MathF.Floor((weaponsToInitialize.Count - 1) / 2f * coef);
+			index = MathF.Max(1, index);
 			index = MathF.Min(index, weaponsToInitialize.Count - 1);
 			Debug.Log($"starting weapon: {index}");
 		}
 
+		ChangeWeapon(0);
+		var startingWeapon1 = weapons[0];
 		ChangeWeapon((int)index);
-		var currentWeapon = weapons[(int)index];
+		var startingWeapon2 = weapons[(int)index];
 		weapons.Clear();
-		weapons.Add(currentWeapon);
-		TryAddSeenWeapon(currentWeapon);
+		weapons.Add(startingWeapon1);
+		weapons.Add(startingWeapon2);
+		TryAddSeenWeapon(startingWeapon1);
+		TryAddSeenWeapon(startingWeapon2);
 		weaponIndex = 0;
 	}
 

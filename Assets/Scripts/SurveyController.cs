@@ -50,16 +50,19 @@ public class SurveyController : MonoBehaviour
 				switch (surveyData.testGroup)
 				{
 					case 'A':
+						Debug.Log("Test group A");
 						PluginController.Instance.ResetProfile();
 						PluginController.Instance.pluginEnabled = false;
 						break;
 					case 'B':
+						Debug.Log("Test group B");
 						foreach (var type in surveyData.runs[0].finalProfile.Profile)
 							PluginController.Instance.PlayerProfileData.Profile[type.Key] = type.Value;
 
 						PluginController.Instance.UpdateFeaturesCoefficient();
 						break;
 					case 'C':
+						Debug.Log("Test group C");
 						foreach (var type in surveyData.runs[0].finalProfile.Profile)
 							PluginController.Instance.PlayerProfileData.Profile[type.Key] = (10 - type.Value);
 

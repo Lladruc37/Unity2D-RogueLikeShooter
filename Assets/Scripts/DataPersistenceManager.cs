@@ -40,17 +40,17 @@ public class DataPersistenceManager : MonoBehaviour
 		Debug.Log(Application.dataPath);
 		if (!string.IsNullOrEmpty(profileFileName))
 		{
-			var filePath = Path.Combine(Application.persistentDataPath, surveyFileName);
+			var surveyPath = Path.Combine(Application.dataPath, surveyFileName);
 			profileDataHandler = new FileDataHandler(Application.persistentDataPath, profileFileName, useEncryption);
 			surveyDataHandler = new FileDataHandler(Application.dataPath, surveyFileName, useEncryption);
 			try
 			{
-				if (File.Exists(filePath))
-					File.Delete(filePath);
+				if (File.Exists(surveyPath))
+					File.Delete(surveyPath);
 			}
 			catch (Exception e)
 			{
-				Debug.LogError($"Error trying to delete survey file in: {filePath}\n {e}");
+				Debug.LogError($"Error trying to delete survey file in: {surveyPath}\n {e}");
 			}
 
 			dataPersistenceObjects = FindAllDataPersistenceObjects();

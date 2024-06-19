@@ -98,10 +98,10 @@ public class Survey_UI : MonoBehaviour
 					return;
 				}
 
+				Debug.Log("Setting up next run...");
 				this.gameObject.SetActive(false);
 				SurveyController.Instance.SetupNextRun();
 				GameManager.instance.generator.RoomsNow = GameManager.instance.roomsAmountStart;
-				//GameManager.instance.SetGenerationSeedRand();
 				GameManager.instance.loadManager.RestartGame();
 				break;
 			default:
