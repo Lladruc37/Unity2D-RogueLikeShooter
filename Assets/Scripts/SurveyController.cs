@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class SurveyController : MonoBehaviour
@@ -31,7 +32,7 @@ public class SurveyController : MonoBehaviour
 				PluginController.Instance.ResetProfile();
 				PluginController.Instance.pluginEnabled = false;
 				surveyData = new SurveyData();
-				surveyData.testGroup = Random.Range(0f, 2f) switch
+				surveyData.testGroup = MathF.Floor(UnityEngine.Random.Range(0f, 2.99999999f)) switch
 				{
 					0 => 'A',
 					1 => 'B',
