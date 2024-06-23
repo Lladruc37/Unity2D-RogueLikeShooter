@@ -31,12 +31,7 @@ public class SurveyController : MonoBehaviour
 				PluginController.Instance.ResetProfile();
 				PluginController.Instance.pluginEnabled = false;
 				surveyData = new SurveyData();
-				var runData = new SurveyDataRun
-				{
-					initialProfile = new PlayerProfileData(PluginController.Instance.PlayerProfileData)
-				};
-				surveyData.runs.Add(runData);
-				surveyData.testGroup = Random.Range(0, 2) switch
+				surveyData.testGroup = Random.Range(0f, 2f) switch
 				{
 					0 => 'A',
 					1 => 'B',
@@ -55,19 +50,33 @@ public class SurveyController : MonoBehaviour
 						PluginController.Instance.pluginEnabled = false;
 						break;
 					case 'B':
-						Debug.Log("Test group B");
-						foreach (var type in surveyData.runs[0].finalProfile.Profile)
-							PluginController.Instance.PlayerProfileData.Profile[type.Key] = type.Value;
+						{
+							Debug.Log("Test group B");
+							var profile = surveyData.runs[0].finalProfile.Profile;
+							for (int i = 0; i < profile.Count; i++)
+							{
+								Debug.Log((PlayerTypes)i);
+								PluginController.Instance.PlayerProfileData.Profile[(PlayerTypes)i] = profile[(PlayerTypes)i];
+								Debug.Log(profile[(PlayerTypes)i]);
+							}
 
-						PluginController.Instance.UpdateFeaturesCoefficient();
-						break;
+							PluginController.Instance.UpdateFeaturesCoefficient();
+							break;
+						}
 					case 'C':
-						Debug.Log("Test group C");
-						foreach (var type in surveyData.runs[0].finalProfile.Profile)
-							PluginController.Instance.PlayerProfileData.Profile[type.Key] = (10 - type.Value);
+						{
+							Debug.Log("Test group C");
+							var profile = surveyData.runs[0].finalProfile.Profile;
+							for (int i = 0; i < profile.Count; i++)
+							{
+								Debug.Log((PlayerTypes)i);
+								PluginController.Instance.PlayerProfileData.Profile[(PlayerTypes)i] = (10f - profile[(PlayerTypes)i]);
+								Debug.Log(profile[(PlayerTypes)i]);
+							}
 
-						PluginController.Instance.UpdateFeaturesCoefficient();
-						break;
+							PluginController.Instance.UpdateFeaturesCoefficient();
+							break;
+						}
 					default:
 						break;
 				}
@@ -75,6 +84,11 @@ public class SurveyController : MonoBehaviour
 			default:
 				break;
 		}
+		var runData = new SurveyDataRun
+		{
+			initialProfile = new PlayerProfileData(PluginController.Instance.PlayerProfileData)
+		};
+		surveyData.runs.Add(runData);
 	}
 
 	public void SetupNextRun()

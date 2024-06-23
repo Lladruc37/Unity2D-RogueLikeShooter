@@ -73,7 +73,7 @@ public class Survey_UI : MonoBehaviour
 		switch (questionNumber)
 		{
 			case 0:
-				data.question0 = playerProfileQuestion.profileDataAnswer;
+				data.question0 = new PlayerProfileData(playerProfileQuestion.profileDataAnswer);
 				break;
 			case 1:
 				data.question1 = System.Convert.ToInt32(answerSlider.value);
@@ -83,7 +83,7 @@ public class Survey_UI : MonoBehaviour
 				break;
 			case 3: //survey over
 				data.question3 = System.Convert.ToInt32(answerSlider.value);
-				data.finalProfile = PluginController.Instance.PlayerProfileData;
+				data.finalProfile = new PlayerProfileData(PluginController.Instance.PlayerProfileData);
 				data.gameStats = Player.instance.gameStatistic;
 				DataPersistenceManager.Instance.SaveSurveyRun(data);
 
