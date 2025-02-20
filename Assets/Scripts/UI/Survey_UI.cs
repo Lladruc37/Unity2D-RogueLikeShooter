@@ -50,8 +50,6 @@ public class Survey_UI : MonoBehaviour
 		sliderText.gameObject.SetActive(questionNumber != 0);
 		playerProfileQuestion.gameObject.SetActive(questionNumber == 0);
 		playerProfileQuestion.OnSliderChanged();
-		//var transform = (RectTransform)question.transform;
-		//transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, questionNumber == 0 ? 880f : 540f);
 
 		question.text = questionNumber switch
 		{

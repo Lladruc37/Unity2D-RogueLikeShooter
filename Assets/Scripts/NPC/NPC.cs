@@ -249,7 +249,7 @@ public class NPC : MonoBehaviour
 		{
 			GameObject instance = Instantiate(loot, position, Quaternion.identity);
 			if (instance.GetComponent<Rigidbody2D>() != null)
-				instance.GetComponent<Rigidbody2D>().AddForce(new Vector2(UnityEngine.Random.Range(0.1f, 1), UnityEngine.Random.Range(0.1f, 1)) * 5, ForceMode2D.Impulse);
+				instance.GetComponent<Rigidbody2D>().AddForce(new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)) * 3, ForceMode2D.Impulse);
 			else
 			{
 				Destroy(instance);
